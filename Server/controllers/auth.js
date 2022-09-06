@@ -1,8 +1,8 @@
 const User = require("../models/auth");
+const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
 exports.register = async (req, res) => {
-  //controller for register
   const { username, email, password, type } = req.body;
 
   const isAvailable = await User.findOne({
