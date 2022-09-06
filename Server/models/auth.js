@@ -17,7 +17,7 @@ const UserSchema = new Schema({
   password: {
     type: String,
     required: [true, "Please enter a password"],
-    select: false,
+    select: false, // change the default behavior at the schema.calls via field selection as '+password'
     minlength: 6,
   },
 
