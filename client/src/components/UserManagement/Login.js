@@ -72,7 +72,7 @@ export default function Login() {
         // set a 3seconds timeout for authentication
 
         if (data.type === "user") {
-          navigate("/register");
+          navigate("/profile");
         } else navigate("/login");
       }, 3000);
     } catch (error) {

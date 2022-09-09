@@ -16,7 +16,6 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "../constant";
 import SendIcon from "@mui/icons-material/Send";
-import { confirm } from "react-confirm-box";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -35,25 +34,6 @@ function EditProfile() {
   const id = localStorage.getItem("id");
   const history = useNavigate();
 
-  //   const checkUpdate = async () => {
-  //     const result = await confirm("Are you sure?");
-  //     if (result) {
-  //       updateHandler();
-  //     }
-  //     console.log("You click No!");
-  //   };
-
-  function checkUpdate() {
-    const confirmBox = window.confirm(
-      "Do want to update this Profile Details ?"
-    );
-    if (confirmBox === true) {
-      updateHandler();
-    } else {
-      history.push("/profile");
-    }
-  }
-
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch(`${BACKEND_BASE_URL}/api/auth/get/${id}`);
@@ -66,49 +46,28 @@ function EditProfile() {
     fetchUser();
   }, []);
 
-  //   function checkUpdate() {
-  //     if (confirm() == true) updateHandler();
-  //     else history("/profile");
-  //   }
-
-  const updateHandler = async (e) => {
-    //update handler method
+  const updateHandler = (e) => {
     e.preventDefault();
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    try {
-      await axios.put(
-        `${BACKEND_BASE_URL}/api/auth/update/${id}`,
-        { username, phoneNumber, email },
-        config
-      );
-
-      const resolveAfter3Sec = new Promise((resolve) =>
-        setTimeout(resolve, 3000)
-      );
-
-      toast.promise(resolveAfter3Sec, {
-        pending: "Process ...",
-        success: "Successfuly Updated 👌",
-        error: "Upddate Faild 🤯",
-      });
-
-      setTimeout(() => {
-        history("/profile");
-      }, 3000); //3s
-    } catch (error) {
-      setError(error.response.data.error);
-      toast.error(error.response.data.error);
-      setTimeout(() => {
-        setError("");
-      }, 1000); //1s
+    const confirmBox = window.confirm(
+      "Do want to update this Profile Details ?"
+    );
+    if (confirmBox === true) {
+      axios
+        .put(`${BACKEND_BASE_URL}/api/auth/update/${id}`, {
+          username,
+          phoneNumber,
+          email,
+        })
+        .then(() => {
+          toast.success("Update Successfuly");
+          history("/profile");
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   };
+
   return (
     <Fragment>
       <Header />
@@ -117,7 +76,7 @@ function EditProfile() {
           <Grid item xs={5}>
             <Item style={{ paddingBottom: "260px" }}>
               <h1 style={{ color: "black" }}>My Account</h1>
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link to="/profile" style={{ textDecoration: "none" }}>
                 <Button
                   variant="outlined"
                   endIcon={<SendIcon />}
@@ -204,7 +163,7 @@ function EditProfile() {
                       variant="contained"
                       color="success"
                       sx={{ mt: 3, mb: 2 }}
-                      onClick={checkUpdate}
+                      onClick={updateHandler}
                     >
                       Update Details
                     </Button>
