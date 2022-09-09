@@ -3,15 +3,16 @@ import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import image from "./assets/Signup.jpg";
+import loginImg from "./assets/Login.jpg";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { useNavigate, Redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "../constant";
 
@@ -23,23 +24,21 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function BasicGrid(props) {
-  const [username, setUsername] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
-  const [email, setEmail] = useState("");
+const theme = createTheme();
+
+export default function Login() {
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [available, setAvailable] = useState("");
   const [loading, setLoading] = useState(false); //additional
   const [isError, setIsError] = useState(false);
-  const type = "user";
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
-  const registerHandler = async (e) => {
-    //register handler method
+  const loginHandler = async (e) => {
+    //handler method for login
     e.preventDefault();
-
     setLoading(true);
     setIsError(false); //additional
 
@@ -49,73 +48,60 @@ export default function BasicGrid(props) {
       },
     };
 
-    if (password !== confirmPassword) {
-      //method for cheking the password an confirm password
-      setPassword("");
-      setConfirmPassword("");
-      setLoading(false);
-      setIsError(true);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-
-      return setError("Password did not match");
-    }
-
     try {
-      await axios.post(
-        `${BACKEND_BASE_URL}/api/auth/register`,
-        { username, phoneNumber, email, password, type },
+      const { data } = await axios.post(
+        `${BACKEND_BASE_URL}/api/auth/login`,
+        { email, password },
         config
       );
 
+      const username = data?.username.split(" ");
+
+      localStorage.setItem("authToken", data.token); //set the browser caching or local storage for globally accessed anywhere in the application
+      localStorage.setItem("username", username?.[0]);
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("id", data._id);
+      localStorage.setItem("type", data?.type);
+
       setTimeout(() => {
-        // notification.info({
-        //   message: `You are successfully registered.`,
-        //   description: "You can access to the system using your credentials.",
-        //   placement: "top",
-        // });
+        // set a 5seconds timeout for authentication
+
+        if (data.type === "user") return navigate("/register");
+        else navigate("/login");
+
         setLoading(false);
-        history("/"); // after 5seconds it will redirect to the login
-        // this.props.history.push("/");
-      }, 3000); //5s
+      }, 3000);
     } catch (error) {
       setError(error.response.data.error);
+      setAvailable(error.response.data.available);
       setLoading(false);
       setIsError(true);
+      setEmail("");
+      setPassword("");
       setTimeout(() => {
         setError("");
+        setAvailable("");
       }, 3000); //5s
     }
   };
+
   return (
-    <React.Fragment>
+    <ThemeProvider theme={theme}>
       <Box
         sx={{
           flexGrow: 1,
           backgroundColor: "#dfc8a2",
-          minHeight: "97vh",
+          minHeight: "100vh",
           // marginTop: "24px",
           // margin: "-8px",
         }}
       >
-        <Grid container spacing={0.3} style={{ padding: "45px" }}>
-          <Grid item xs={6}>
-            <Item>
-              <img
-                src={image}
-                style={{
-                  height: "595px",
-                  // padding: "0px",
-                  // marginLeft: "0px",
-                  // paddingTop: "80px",
-                  // paddingBottom: "80px",
-                }}
-                alt="Logo"
-              />
-            </Item>
-          </Grid>
-          <Grid item xs={6}>
+        <Grid
+          container
+          spacing={0.3}
+          style={{ padding: "45px", paddingTop: "150px" }}
+        >
+          <Grid item xs={5}>
             <Item>
               <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -132,38 +118,14 @@ export default function BasicGrid(props) {
                     variant="h5"
                     style={{ color: "black" }}
                   >
-                    Register
+                    Login
                   </Typography>
                   <Box
                     component="form"
-                    // onSubmit={handleSubmit}
+                    onSubmit={loginHandler}
                     noValidate
                     sx={{ mt: 1 }}
                   >
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="name"
-                      label="Full Name"
-                      name="name"
-                      autoComplete="Name"
-                      autoFocus
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="phoneNumber"
-                      label="Phone Number"
-                      name="phoneNumber"
-                      autoComplete="phoneNumber"
-                      autoFocus
-                      value={phoneNumber}
-                      onChange={(e) => setphoneNumber(e.target.value)}
-                    />
                     <TextField
                       margin="normal"
                       required
@@ -188,18 +150,6 @@ export default function BasicGrid(props) {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                     />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Confirm Password"
-                      type="password"
-                      id="Repassword"
-                      autoComplete="current-password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
 
                     <Button
                       type="submit"
@@ -207,14 +157,19 @@ export default function BasicGrid(props) {
                       variant="contained"
                       color="success"
                       sx={{ mt: 3, mb: 2 }}
-                      onClick={registerHandler}
                     >
-                      Register
+                      Login
                     </Button>
-                    <Grid container style={{ justifyContent: "center" }}>
+                    <Grid
+                      container
+                      style={{
+                        justifyContent: "center",
+                        paddingBottom: "48px",
+                      }}
+                    >
                       <Grid item>
-                        <Link href="#" variant="body2">
-                          {"Have an account? Login"}
+                        <Link href="/register" variant="body2">
+                          {"If You Don't Have an account? Signup"}
                         </Link>
                       </Grid>
                     </Grid>
@@ -223,8 +178,19 @@ export default function BasicGrid(props) {
               </Container>
             </Item>
           </Grid>
+          <Grid item xs={7}>
+            <Item>
+              <img
+                src={loginImg}
+                style={{
+                  height: "400px",
+                }}
+                alt="Logo"
+              />
+            </Item>
+          </Grid>
         </Grid>
       </Box>
-    </React.Fragment>
+    </ThemeProvider>
   );
 }
