@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 
 exports.register = async (req, res) => {
-  const { username, email, password, type } = req.body;
+  const { username, phoneNumber, email, password, type } = req.body;
 
   const isAvailable = await User.findOne({
     email: { $regex: new RegExp(email, "i") }, // constructor with string pattern as first
@@ -16,6 +16,7 @@ exports.register = async (req, res) => {
   try {
     const user = await User.create({
       username,
+      phoneNumber,
       email,
       password,
       type,
@@ -114,14 +115,18 @@ exports.deleteById = async (req, res) => {
 const sendToken = (user, statusCode, res) => {
   //JWT get
   const token = user.getSignedToken();
+  const _id = user._id;
   const username = user.username;
+  const phoneNumber = user.phoneNumber;
   const email = user.email;
   const type = user.type;
   const dept = user.dept;
   res.status(200).json({
     success: true,
     token,
+    _id,
     username,
+    phoneNumber,
     email,
     type,
     dept,

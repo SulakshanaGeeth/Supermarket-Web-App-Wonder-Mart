@@ -1,7 +1,16 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+//User Management Imports
+import Register from "./components/UserManagement/Register";
+
 function App() {
   return (
     <div className="App">
-      <h1>Super market app</h1>
+      <Router>
+        <Routes>
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </Router>
     </div>
   );
 }
