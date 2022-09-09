@@ -10,6 +10,7 @@ import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { toast } from "react-toastify";
 
 import { useNavigate, Redirect } from "react-router-dom";
 import axios from "axios";
@@ -30,8 +31,6 @@ export default function BasicGrid(props) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); //additional
-  const [isError, setIsError] = useState(false);
   const type = "user";
 
   const history = useNavigate();
@@ -39,9 +38,6 @@ export default function BasicGrid(props) {
   const registerHandler = async (e) => {
     //register handler method
     e.preventDefault();
-
-    setLoading(true);
-    setIsError(false); //additional
 
     const config = {
       headers: {
@@ -53,13 +49,8 @@ export default function BasicGrid(props) {
       //method for cheking the password an confirm password
       setPassword("");
       setConfirmPassword("");
-      setLoading(false);
-      setIsError(true);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-
-      return setError("Password did not match");
+      setError("Password did not match");
+      return toast.error(error);
     }
 
     try {
@@ -69,23 +60,31 @@ export default function BasicGrid(props) {
         config
       );
 
+      const resolveAfter3Sec = new Promise((resolve) =>
+        setTimeout(resolve, 3000)
+      );
+
+      toast.promise(resolveAfter3Sec, {
+        pending: "Process ...",
+        success: "Registration Success 👌",
+        error: "Registration Faild 🤯",
+      });
+
       setTimeout(() => {
         // notification.info({
         //   message: `You are successfully registered.`,
         //   description: "You can access to the system using your credentials.",
         //   placement: "top",
         // });
-        setLoading(false);
-        history("/"); // after 5seconds it will redirect to the login
+        history("/"); // after 3seconds it will redirect to the login
         // this.props.history.push("/");
-      }, 3000); //5s
+      }, 3000); //3s
     } catch (error) {
       setError(error.response.data.error);
-      setLoading(false);
-      setIsError(true);
+      toast.error(error.response.data.error);
       setTimeout(() => {
         setError("");
-      }, 3000); //5s
+      }, 1000); //1s
     }
   };
   return (
@@ -213,7 +212,7 @@ export default function BasicGrid(props) {
                     </Button>
                     <Grid container style={{ justifyContent: "center" }}>
                       <Grid item>
-                        <Link href="#" variant="body2">
+                        <Link href="/" variant="body2">
                           {"Have an account? Login"}
                         </Link>
                       </Grid>

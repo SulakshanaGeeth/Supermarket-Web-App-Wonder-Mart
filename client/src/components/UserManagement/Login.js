@@ -11,6 +11,7 @@ import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { toast } from "react-toastify";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -30,17 +31,12 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const [available, setAvailable] = useState("");
-  const [loading, setLoading] = useState(false); //additional
-  const [isError, setIsError] = useState(false);
 
   const navigate = useNavigate();
 
   const loginHandler = async (e) => {
     //handler method for login
     e.preventDefault();
-    setLoading(true);
-    setIsError(false); //additional
 
     const config = {
       headers: {
@@ -63,25 +59,29 @@ export default function Login() {
       localStorage.setItem("id", data._id);
       localStorage.setItem("type", data?.type);
 
+      const resolveAfter3Sec = new Promise((resolve) =>
+        setTimeout(resolve, 3000)
+      );
+
+      toast.promise(resolveAfter3Sec, {
+        pending: "Login ...",
+        success: "Login Success 👌",
+        error: "Login Faild 🤯",
+      });
       setTimeout(() => {
-        // set a 5seconds timeout for authentication
+        // set a 3seconds timeout for authentication
 
-        if (data.type === "user") return navigate("/register");
-        else navigate("/login");
-
-        setLoading(false);
+        if (data.type === "user") {
+          navigate("/register");
+        } else navigate("/login");
       }, 3000);
     } catch (error) {
       setError(error.response.data.error);
-      setAvailable(error.response.data.available);
-      setLoading(false);
-      setIsError(true);
-      setEmail("");
+      toast.error(error.response.data.error);
       setPassword("");
       setTimeout(() => {
         setError("");
-        setAvailable("");
-      }, 3000); //5s
+      }, 3000); //3s
     }
   };
 
