@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 //User Management Imports
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import EditProfile from "./components/UserManagement/EditProfile";
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/register" element={<Register />} />
+
+          <Route path="/profile" element={<EditProfile />} />
+
           <Route path="/" element={<Login />} />
         </Routes>
       </Router>

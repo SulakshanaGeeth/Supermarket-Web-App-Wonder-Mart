@@ -93,12 +93,12 @@ exports.getById = async (req, res) => {
 exports.updateById = async (req, res) => {
   const { id } = req.params;
 
-  const { email, username, password } = req.body;
+  const { email, phoneNumber, username } = req.body;
 
   await User.findByIdAndUpdate(id, {
-    email,
     username,
-    password,
+    email,
+    phoneNumber,
   })
     .then(() => res.json({ message: "Successfully Update the Employee" }))
     .catch((err) => res.status(500).json({ err }));

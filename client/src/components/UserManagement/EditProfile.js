@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import Header from "../HeaderFooter/Header";
+import Footer from "../HeaderFooter/Footer";
+import React, { useState, useEffect, Fragment } from "react";
 import { styled } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -7,14 +9,14 @@ import image from "./assets/Signup.jpg";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { toast } from "react-toastify";
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "../constant";
+import SendIcon from "@mui/icons-material/Send";
+import { confirm } from "react-confirm-box";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -24,19 +26,53 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Register() {
+function EditProfile() {
   const [username, setUsername] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const type = "user";
 
+  const id = localStorage.getItem("id");
   const history = useNavigate();
 
-  const registerHandler = async (e) => {
-    //register handler method
+  //   const checkUpdate = async () => {
+  //     const result = await confirm("Are you sure?");
+  //     if (result) {
+  //       updateHandler();
+  //     }
+  //     console.log("You click No!");
+  //   };
+
+  function checkUpdate() {
+    const confirmBox = window.confirm(
+      "Do want to update this Profile Details ?"
+    );
+    if (confirmBox === true) {
+      updateHandler();
+    } else {
+      history.push("/profile");
+    }
+  }
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const res = await fetch(`${BACKEND_BASE_URL}/api/auth/get/${id}`);
+      const data = await res.json();
+      setUsername(data.username);
+      setphoneNumber(data.phoneNumber);
+      setEmail(data.email);
+      console.log(username);
+    };
+    fetchUser();
+  }, []);
+
+  //   function checkUpdate() {
+  //     if (confirm() == true) updateHandler();
+  //     else history("/profile");
+  //   }
+
+  const updateHandler = async (e) => {
+    //update handler method
     e.preventDefault();
 
     const config = {
@@ -45,18 +81,10 @@ export default function Register() {
       },
     };
 
-    if (password !== confirmPassword) {
-      //method for cheking the password an confirm password
-      setPassword("");
-      setConfirmPassword("");
-      setError("Password did not match");
-      return toast.error(error);
-    }
-
     try {
-      await axios.post(
-        `${BACKEND_BASE_URL}/api/auth/register`,
-        { username, phoneNumber, email, password, type },
+      await axios.put(
+        `${BACKEND_BASE_URL}/api/auth/update/${id}`,
+        { username, phoneNumber, email },
         config
       );
 
@@ -66,18 +94,12 @@ export default function Register() {
 
       toast.promise(resolveAfter3Sec, {
         pending: "Process ...",
-        success: "Registration Success 👌",
-        error: "Registration Faild 🤯",
+        success: "Successfuly Updated 👌",
+        error: "Upddate Faild 🤯",
       });
 
       setTimeout(() => {
-        // notification.info({
-        //   message: `You are successfully registered.`,
-        //   description: "You can access to the system using your credentials.",
-        //   placement: "top",
-        // });
-        history("/"); // after 3seconds it will redirect to the login
-        // this.props.history.push("/");
+        history("/profile");
       }, 3000); //3s
     } catch (error) {
       setError(error.response.data.error);
@@ -88,33 +110,39 @@ export default function Register() {
     }
   };
   return (
-    <React.Fragment>
-      <Box
-        sx={{
-          flexGrow: 1,
-          backgroundColor: "#dfc8a2",
-          minHeight: "97vh",
-          // marginTop: "24px",
-          // margin: "-8px",
-        }}
-      >
+    <Fragment>
+      <Header />
+      <div style={{ backgroundColor: "#d1dae8", marginTop: "-40px" }}>
         <Grid container spacing={0.3} style={{ padding: "45px" }}>
-          <Grid item xs={6}>
-            <Item>
-              <img
-                src={image}
+          <Grid item xs={5}>
+            <Item style={{ paddingBottom: "260px" }}>
+              <h1 style={{ color: "black" }}>My Account</h1>
+              <Link to="/" style={{ textDecoration: "none" }}>
+                <Button
+                  variant="outlined"
+                  endIcon={<SendIcon />}
+                  style={{
+                    marginBottom: "20px",
+                    marginLeft: "210px",
+                    width: "350px",
+                  }}
+                >
+                  Profile Edit
+                </Button>
+              </Link>
+              <Button
+                variant="outlined"
                 style={{
-                  height: "595px",
-                  // padding: "0px",
-                  // marginLeft: "0px",
-                  // paddingTop: "80px",
-                  // paddingBottom: "80px",
+                  display: "block",
+                  marginLeft: "210px",
+                  width: "350px",
                 }}
-                alt="Logo"
-              />
+              >
+                Password Change
+              </Button>
             </Item>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={7}>
             <Item>
               <Container component="main" maxWidth="xs">
                 <CssBaseline />
@@ -131,14 +159,9 @@ export default function Register() {
                     variant="h5"
                     style={{ color: "black" }}
                   >
-                    Register
+                    Personal Information
                   </Typography>
-                  <Box
-                    component="form"
-                    // onSubmit={handleSubmit}
-                    noValidate
-                    sx={{ mt: 1 }}
-                  >
+                  <Box component="form" noValidate sx={{ mt: 1 }}>
                     <TextField
                       margin="normal"
                       required
@@ -150,18 +173,6 @@ export default function Register() {
                       autoFocus
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      id="phoneNumber"
-                      label="Phone Number"
-                      name="phoneNumber"
-                      autoComplete="phoneNumber"
-                      autoFocus
-                      value={phoneNumber}
-                      onChange={(e) => setphoneNumber(e.target.value)}
                     />
                     <TextField
                       margin="normal"
@@ -179,51 +190,36 @@ export default function Register() {
                       margin="normal"
                       required
                       fullWidth
-                      name="password"
-                      label="Password"
-                      type="password"
-                      id="password"
-                      autoComplete="current-password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      id="phoneNumber"
+                      label="Phone Number"
+                      name="phoneNumber"
+                      autoComplete="phoneNumber"
+                      autoFocus
+                      value={phoneNumber}
+                      onChange={(e) => setphoneNumber(e.target.value)}
                     />
-                    <TextField
-                      margin="normal"
-                      required
-                      fullWidth
-                      name="password"
-                      label="Confirm Password"
-                      type="password"
-                      id="Repassword"
-                      autoComplete="current-password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-
                     <Button
                       type="submit"
                       fullWidth
                       variant="contained"
                       color="success"
                       sx={{ mt: 3, mb: 2 }}
-                      onClick={registerHandler}
+                      onClick={checkUpdate}
                     >
-                      Register
+                      Update Details
                     </Button>
-                    <Grid container style={{ justifyContent: "center" }}>
-                      <Grid item>
-                        <Link href="/" variant="body2">
-                          {"Have an account? Login"}
-                        </Link>
-                      </Grid>
-                    </Grid>
                   </Box>
                 </Box>
               </Container>
             </Item>
           </Grid>
         </Grid>
-      </Box>
-    </React.Fragment>
+      </div>
+      <div style={{ marginTop: "-100px" }}>
+        <Footer />
+      </div>
+    </Fragment>
   );
 }
+
+export default EditProfile;
