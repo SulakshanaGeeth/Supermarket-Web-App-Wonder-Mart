@@ -74,7 +74,7 @@ export default function Login() {
         if (data.type === "user") {
           navigate("/home");
         } else if (data.type === "admin") {
-          navigate("/");
+          navigate("/admin");
         }
       }, 3000);
     } catch (error) {
