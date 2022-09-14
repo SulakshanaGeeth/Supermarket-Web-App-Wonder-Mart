@@ -26,6 +26,11 @@ const PORT = process.env.PORT || 8070; //accually process.env.PORT is inbuilt
 app.use(cors());
 app.use(express.json()); //parse various different custom JSON types as JSO
 
+
+//routes
+const DpersonRouter =require("./routes/Dpersons.js");
+app.use("/Dperson",DpersonRouter);
+
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
 });
