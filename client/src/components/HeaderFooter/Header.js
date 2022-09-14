@@ -85,7 +85,7 @@ export default class Header extends React.Component {
             />
             <Tab
               label="Products"
-              href="/products"
+              href="/AllProducts"
               sx={{ color: "white", marginLeft: "25px" }}
             />
             <Tab

@@ -45,7 +45,7 @@ export default class Footer extends React.Component {
             />
             <Tab
               label="Products"
-              href="/trash"
+              href="/AllProducts"
               sx={{ color: "white", marginLeft: "25px", marginTop: "60px" }}
             />
             <Tab
