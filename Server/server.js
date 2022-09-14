@@ -40,3 +40,8 @@ app.use("/products",router) // localhost:8070/products
 app.listen(PORT, () => {
   console.log(`Server is up and running on port number ${PORT}`);
 });
+
+app.use("/api/auth", require("./routes/auth"));
+
+app.use('/cart', require("./routes/Cart"));
+
