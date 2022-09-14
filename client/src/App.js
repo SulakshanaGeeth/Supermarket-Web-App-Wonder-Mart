@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
 import EditProfile from "./components/UserManagement/EditProfile";
+import AdminDashboard from "./components/AdminDashboard";
 
 //Product managemet Imports
 // import Header from "./components/Header";
@@ -41,6 +42,8 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         <Route path="/profile" element={<EditProfile />} />
+
+        <Route path="/admin" element={<AdminDashboard />} />
 
         <Route path="/" element={<Login />} />
 

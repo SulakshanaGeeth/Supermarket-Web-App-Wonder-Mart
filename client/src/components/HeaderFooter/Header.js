@@ -23,6 +23,7 @@ export default class Header extends React.Component {
     }
   };
   render() {
+    const username = localStorage.getItem("username");
     return (
       <div className="header">
         {/* <h1>Header</h1> */}
@@ -43,7 +44,7 @@ export default class Header extends React.Component {
             <Typography
               sx={{ marginLeft: "10px", fontSize: "20px", color: "black" }}
             >
-              Welcome Geeth
+              Welcome {username}
             </Typography>
           </IconButton>
 

@@ -37,9 +37,9 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
   //controller for login
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  if (!username && !password) {
+  if (!email && !password) {
     //backend validation
     return res
       .status(400)
@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
 
   try {
     const user = await User.findOne({
-      username: { $regex: new RegExp(username, "i") }, // constructor with string pattern as first
+      email: { $regex: new RegExp(email, "i") }, // constructor with string pattern as first
     }).select("+password"); //match two passwords (change the default behavior at the schema.calls via field selection as '+password')
 
     if (!user) {
