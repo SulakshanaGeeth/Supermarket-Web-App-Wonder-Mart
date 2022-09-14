@@ -9,15 +9,16 @@ import EditProfile from "./components/UserManagement/EditProfile";
 
 //Product managemet Imports
 // import Header from "./components/Header";
-// import Home from "./components/Home";
-import AddProduct from "./components/AddProduct";
+import Home from "./components/Home";
+import AddProduct from "./components/Product/AddProduct";
 import About from "./components/About";
 import Products from "./components/Product/Products";
 import ProductDetail from "./components/Product/ProductDetail";
 
 //Product delivery Imports
-import AllDperson from "./components/ViewDperson/AllDperson";
-import DpersonEdit from "./components/Dedit/Dedit";
+import AllDperson from "./components/DeliveryManagement/AllDperson";
+import DpersonEdit from "./components/DeliveryManagement/Dedit";
+import AddDeperson from "./components/DeliveryManagement/AddDperson";
 
 function App() {
   return (
@@ -26,8 +27,9 @@ function App() {
 
       <Routes>
         {/* Product Routes */}
-        {/* <Route path="/" element={<Home />} exact /> */}
-        <Route path="/add" element={<AddProduct />} exact />
+        <Route path="/home" element={<Home />} exact />
+
+        <Route path="/addProduct" element={<AddProduct />} exact />
 
         <Route path="/products" element={<Products />} exact />
 
@@ -43,12 +45,11 @@ function App() {
         <Route path="/" element={<Login />} />
 
         {/* Delivery Routes */}
-        <Route path="/add" element={<AddDeperson />} />
+        <Route path="/addPerson" element={<AddDeperson />} />
 
-        <Route path="/" element={<AllDperson />} />
+        <Route path="/allPersons" element={<AllDperson />} />
 
         <Route path="/edit/:id" element={<DpersonEdit />} />
-        
       </Routes>
     </div>
   );

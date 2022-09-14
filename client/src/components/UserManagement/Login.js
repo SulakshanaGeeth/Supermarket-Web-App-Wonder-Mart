@@ -72,8 +72,10 @@ export default function Login() {
         // set a 3seconds timeout for authentication
 
         if (data.type === "user") {
-          navigate("/profile");
-        } else navigate("/login");
+          navigate("/home");
+        } else if (data.type === "admin") {
+          navigate("/");
+        }
       }, 3000);
     } catch (error) {
       setError(error.response.data.error);
