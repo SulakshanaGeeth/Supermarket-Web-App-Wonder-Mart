@@ -34,17 +34,18 @@ const  getById= async(req,res,next)=>{
 // add new book to database
 
 const addProduct = async (req,res,next) => {
-    const {productId,productName,productCategory,quentity,price,image} = req.body;
+    const {productName,productCategory,quentity,price,image,available} = req.body;
     let product;
 
     try {
         product = new Product({
-            productId,
+
             productName,
             productCategory,
             quentity,
             price,
-            image
+            image,
+            available
         });
         await product.save();
     } catch (err){
@@ -61,17 +62,18 @@ const addProduct = async (req,res,next) => {
 
 const updateProduct = async(req,res,next) =>{
     const id = req.params.id;
-    const {productId,productName,productCategory,quentity,price,image} = req.body;
+    const {productName,productCategory,quentity,price,image,available} = req.body;
     let product;
 
     try {
         product = await Product.findByIdAndUpdate(id, {
-            productId,
+
             productName,
             productCategory,
             quentity,
             price,
-            image
+            image,
+            available
         });
         product = await  product.save();
     } catch (err) {
