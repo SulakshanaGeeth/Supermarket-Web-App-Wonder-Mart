@@ -21,6 +21,10 @@ import AllDperson from "./components/DeliveryManagement/AllDperson";
 import DpersonEdit from "./components/DeliveryManagement/Dedit";
 import AddDeperson from "./components/DeliveryManagement/AddDperson";
 
+//Cart Management
+import AllProducts from "./components/Cart Management/All_Products";
+import UserCart from "./components/Cart Management/UserCart";
+
 function App() {
   return (
     <div className="App">
@@ -53,6 +57,11 @@ function App() {
         <Route path="/allPersons" element={<AllDperson />} />
 
         <Route path="/edit/:id" element={<DpersonEdit />} />
+
+        {/* Cart Management */}
+        <Route path="/AllProducts" element={<AllProducts />} />
+        <Route path="/Cart" element={<UserCart />} />
+
       </Routes>
     </div>
   );
