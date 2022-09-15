@@ -65,7 +65,7 @@ export default function Login() {
 
       toast.promise(resolveAfter3Sec, {
         pending: "Login ...",
-        success: "Login Success 👌",
+        // success: "Login Success 👌",
         error: "Login Faild 🤯",
       });
       setTimeout(() => {
