@@ -30,7 +30,7 @@ export default class UserCart extends React.Component {
         super(props);
 
         this.state = {
-            UserID:"U001",
+            UserID:localStorage.getItem("id"),
             CartDet:[],
             Items: [],
             Qty : 0,
@@ -38,7 +38,8 @@ export default class UserCart extends React.Component {
             remCart : false,
             cartID:"",
             snackbar:false,
-            message:""
+            message:"",
+            variant:"error"
         }
     }
 
@@ -212,10 +213,9 @@ export default class UserCart extends React.Component {
                     <Snackbar
                         open={this.state.snackbar}
                         onClose={() => this.snackbar()}
-                        variant="success"
                         autoHideDuration={3000}
                         >
-                        <Alert severity="success">{this.state.message}</Alert>
+                        <Alert severity="success">{this.state.message}</Alert>                        
                                                     
                     </Snackbar>
 

@@ -18,6 +18,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Divider from '@mui/material/Divider';
+import MenuList from '@mui/material/MenuList';
 
 export default class AllProducts extends React.Component {
 
@@ -27,11 +29,13 @@ export default class AllProducts extends React.Component {
         this.state = {
             Products: [],
             Item: [],
-            UserID:"U001",
+            UserID:localStorage.getItem("id"),
             open: false,
             imge: "",
             snackbar : false,
-            message:""
+            message:"",
+            variant:"error",
+            status:""
         }
     }
 
@@ -71,10 +75,13 @@ export default class AllProducts extends React.Component {
             //console.log(Cart);
 
             await axios.post('http://localhost:8070/cart/add/' + this.state.UserID, Cart)
-            .then((res) => {console.log(res.data); this.setState({message:res.data});})
+            .then((res) => {console.log(res); this.setState({message:res.data, status:res.status});})
             .catch((err) => console.log(err.message))
 
             this.setState({Item:[]});
+
+            if(this.state.status === 200)
+                this.setState({variant:"success"});
 
             this.snackbar()
 
@@ -101,6 +108,24 @@ export default class AllProducts extends React.Component {
           }
     }
 
+    async ItemsByCategory(category) {
+        //console.log(category)
+
+        this.catogaryOpen();
+
+        if(category === "All")
+            this.componentDidMount();
+
+        else {
+            await axios.get('http://localhost:8070/cart/getProduct/' + category)
+            .then((res) => {
+                this.setState({Products: res.data})
+                console.log(this.state.Products)
+            })
+            .catch((err) => console.log(err.message))
+        }        
+    }
+
     render() {
         return (
             <div style={{marginLeft:"30px"}}>
@@ -108,19 +133,19 @@ export default class AllProducts extends React.Component {
                 <Header/>
                 
                 <ButtonGroup variant="contained" aria-label="split button" sx={{ position:"absolute", marginLeft:"290px", marginTop:"-60px"}}>
-                    <Button sx={{ backgroundColor:"white", color:"black", width:"150px"}} onClick={() => this.catogaryOpen()}>Catogory</Button>
-                    <Button size="medium"
+                    <Button sx={{ backgroundColor:"white", color:"black", width:"200px"}} onClick={() => this.catogaryOpen()} endIcon={<ArrowDropDownIcon />} >Catogory</Button>
+                    {/* <Button size="medium"
                         
                         onClick={() => this.catogaryOpen()}
                         sx={{ backgroundColor:"white", color:"black"}}
                     >
                     <ArrowDropDownIcon />
-                    </Button>
+                    </Button> */}
 
                     <Menu
                         id="menu-appbar"
                         sx={{
-                        marginTop:"160px", marginLeft:"320px",
+                        marginTop:"160px", marginLeft:"310px"
                         }}
                         anchorEl={this.state.logo}
                         anchorOrigin={{
@@ -135,14 +160,14 @@ export default class AllProducts extends React.Component {
                         open={this.state.open}
                         onClose={() => this.catogaryOpen()}
                      >
-                        <MenuItem onClick={this.profileItemclose} sx={{width:"200px"}}>                  
+                        <MenuList sx={{display:"block"}} >
+                            <MenuItem sx={{width:"200px"}} onClick={() => this.ItemsByCategory("All")} > All </MenuItem> <Divider />
+                            <MenuItem sx={{width:"200px"}} onClick={() => this.ItemsByCategory("Snacks")} > Snacks  </MenuItem> <Divider />
+                            <MenuItem sx={{width:"200px"}} onClick={() => this.ItemsByCategory("Tea & Coffe")} >  Tea & Coffe </MenuItem> <Divider />
+                            <MenuItem sx={{width:"200px"}} onClick={() => this.ItemsByCategory("Dairy")} >  Dairy </MenuItem> <Divider />
+                            <MenuItem sx={{width:"200px"}} onClick={() => this.ItemsByCategory("Personal Care")} >  Personal Care </MenuItem> <Divider />
+                        </MenuList>
                        
-                        Type 1
-                        </MenuItem>
-                        <MenuItem onClick={this.onSignOut}>
-                       
-                        Type 2
-                        </MenuItem>
                     </Menu>
 
                     <TextField                        
@@ -186,10 +211,9 @@ export default class AllProducts extends React.Component {
                 <Snackbar
                     open={this.state.snackbar}
                     onClose={() => this.snackbar()}
-                    variant="success"
                     autoHideDuration={3000}
                  >
-                   <Alert severity="success">{this.state.message}</Alert>
+                   <Alert severity={this.state.variant}>{this.state.message}</Alert>
                                             
                 </Snackbar>
 
