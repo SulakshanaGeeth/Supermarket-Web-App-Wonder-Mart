@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
 function AddDPerson() {
   const [name, setName] = useState("");
   const [IdNumber, setIdNumber] = useState("");
@@ -35,7 +33,6 @@ function AddDPerson() {
 
   return (
     <div>
-      <Header />
       <form onSubmit={sendData}>
         <div className="mb-3">
           <label for="name" className="form-label">
@@ -98,7 +95,6 @@ function AddDPerson() {
           Submit
         </button>
       </form>
-      <Footer />
     </div>
   );
 }

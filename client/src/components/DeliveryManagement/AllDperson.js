@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axois from "axios";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
@@ -40,7 +38,6 @@ function AllDpersons() {
 
   return (
     <div>
-      <Header />
       <Button variant="primary" onClick={() => navAdd()}>
         Add Delivery person
       </Button>
@@ -77,7 +74,6 @@ function AllDpersons() {
           ))}
         </tbody>
       </Table>
-      <Footer />
     </div>
   );
 }

@@ -74,7 +74,9 @@ export default function Login() {
         if (data.type === "user") {
           navigate("/home");
         } else if (data.type === "admin") {
-          navigate("/admin");
+          navigate(
+            `admin-dashboard/${localStorage.getItem("username")}/adminHome`
+          );
         }
       }, 3000);
     } catch (error) {

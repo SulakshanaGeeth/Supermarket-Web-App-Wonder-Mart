@@ -1,6 +1,4 @@
 import React from "react";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
 import { Button } from "@mui/material";
 import "./Product.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,18 +26,21 @@ const Product = (props) => {
 
   return (
     <div className="card">
-      <Header />
       <img src={image} alt={productName} />
       <h3>{productName}</h3>
       <p>Category : {productCategory}</p>
       <h4>Quantity : {quentity}</h4>
       <h3>LKR:{price}.00/=</h3>
       <h3>{available}</h3>
-      <Button LinkComponent={Link} to={`/products/${_id}`}>
+      <Button
+        LinkComponent={Link}
+        to={`/admin-dashboard/${localStorage.getItem(
+          "username"
+        )}/products/${_id}`}
+      >
         Update
       </Button>
       <Button onClick={deleteHandler}>Delete</Button>
-      <Footer />
     </div>
   );
 };
