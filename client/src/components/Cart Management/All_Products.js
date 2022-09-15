@@ -27,11 +27,13 @@ export default class AllProducts extends React.Component {
         this.state = {
             Products: [],
             Item: [],
-            UserID:"U001",
+            UserID:localStorage.getItem("id"),
             open: false,
             imge: "",
             snackbar : false,
-            message:""
+            message:"",
+            variant:"error",
+            status:""
         }
     }
 
@@ -71,10 +73,13 @@ export default class AllProducts extends React.Component {
             //console.log(Cart);
 
             await axios.post('http://localhost:8070/cart/add/' + this.state.UserID, Cart)
-            .then((res) => {console.log(res.data); this.setState({message:res.data});})
+            .then((res) => {console.log(res); this.setState({message:res.data, status:res.status});})
             .catch((err) => console.log(err.message))
 
             this.setState({Item:[]});
+
+            if(this.state.status === 200)
+                this.setState({variant:"success"});
 
             this.snackbar()
 
@@ -186,10 +191,9 @@ export default class AllProducts extends React.Component {
                 <Snackbar
                     open={this.state.snackbar}
                     onClose={() => this.snackbar()}
-                    variant="success"
                     autoHideDuration={3000}
                  >
-                   <Alert severity="success">{this.state.message}</Alert>
+                   <Alert severity={this.state.variant}>{this.state.message}</Alert>
                                             
                 </Snackbar>
 
