@@ -32,12 +32,7 @@ const Product = (props) => {
       <h4>Quantity : {quentity}</h4>
       <h3>LKR:{price}.00/=</h3>
       <h3>{available}</h3>
-      <Button
-        LinkComponent={Link}
-        to={`/admin-dashboard/${localStorage.getItem(
-          "username"
-        )}/products/${_id}`}
-      >
+      <Button LinkComponent={Link} to={`/admin/product/${_id}`}>
         Update
       </Button>
       <Button onClick={deleteHandler}>Delete</Button>

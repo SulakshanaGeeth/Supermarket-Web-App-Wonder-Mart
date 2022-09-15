@@ -15,15 +15,10 @@ import AdminDashboard from "./components/AdminDashboard";
 //Product managemet Imports
 // import Header from "./components/Header";
 import Home from "./components/Home";
-import AddProduct from "./components/Product/AddProduct";
+
 import About from "./components/About";
-// import Products from "./components/Product/Products";
-import ProductDetail from "./components/Product/ProductDetail";
 
 //Product delivery Imports
-// import AllDperson from "./components/DeliveryManagement/AllDperson";
-import DpersonEdit from "./components/DeliveryManagement/Dedit";
-import AddDeperson from "./components/DeliveryManagement/AddDperson";
 
 function App() {
   return (
@@ -31,13 +26,66 @@ function App() {
       <ToastContainer />
 
       <Routes>
-        {/* Product Routes */}
-        <Route path="/home" element={<Home />} exact />
-
-        <Route path="/addProduct" element={<AddProduct />} exact />
+        {/*  */}
+        {/*  */}
+        {/* User Routes */}
+        {/*  */}
+        {/*  */}
+        <Route path="/" element={<Login />} />
 
         <Route
-          path="/admin-dashboard/:username/products"
+          path="/register"
+          element={
+            <PrivateRoute>
+              <Register />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute>
+              <EditProfile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/customerHome"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/adminHome"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/home" element={<Home />} exact />
+        {/*  */}
+        {/*  */}
+        {/* Product Routes */}
+        {/*  */}
+        {/*  */}
+        <Route
+          path="/admin/addProduct/"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+          exact
+        />
+
+        <Route
+          path="/admin/products"
           element={
             <PrivateRoute>
               <AdminDashboard />
@@ -48,44 +96,20 @@ function App() {
         <Route path="/about" element={<About />} exact />
 
         <Route
-          path="/admin-dashboard/:username/products/:id"
+          path="/admin/product/:id"
           element={
             <PrivateRoute>
               <AdminDashboard />
             </PrivateRoute>
           }
         />
-
-        {/* User Routes */}
-        <Route path="/register" element={<Register />} />
-
-        <Route path="/profile" element={<EditProfile />} />
-
-        <Route
-          path="/admin-dashboard/:username/customerHome"
-          element={
-            <PrivateRoute>
-              <AdminDashboard />
-            </PrivateRoute>
-          }
-        />
-
-        <Route
-          path="/admin-dashboard/:username/adminHome"
-          element={
-            <PrivateRoute>
-              <AdminDashboard />
-            </PrivateRoute>
-          }
-        />
-
-        <Route path="/" element={<Login />} />
-
+        {/*  */}
+        {/*  */}
         {/* Delivery Routes */}
-        <Route path="/addPerson" element={<AddDeperson />} />
-
+        {/*  */}
+        {/*  */}
         <Route
-          path="/admin-dashboard/:username/allPersons"
+          path="/admin/addPerson"
           element={
             <PrivateRoute>
               <AdminDashboard />
@@ -93,7 +117,23 @@ function App() {
           }
         />
 
-        <Route path="/edit/:id" element={<DpersonEdit />} />
+        <Route
+          path="/admin/allPersons"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/edit/:id"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
       </Routes>
     </div>
   );

@@ -29,11 +29,11 @@ function AllDpersons() {
     window.location.reload();
   };
   const navAdd = () => {
-    window.location = "/add";
+    window.location = "/admin/addPerson/";
   };
 
   const navEdit = (id) => {
-    window.location = `/edit/${id}`;
+    window.location = `/admin/edit/${id}`;
   };
 
   return (
