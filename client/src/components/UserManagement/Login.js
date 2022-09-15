@@ -59,31 +59,31 @@ export default function Login() {
       localStorage.setItem("id", data._id);
       localStorage.setItem("type", data?.type);
 
-      const resolveAfter3Sec = new Promise((resolve) =>
-        setTimeout(resolve, 3000)
+      const resolveAfter2Sec = new Promise((resolve) =>
+        setTimeout(resolve, 2000)
       );
 
-      toast.promise(resolveAfter3Sec, {
+      toast.promise(resolveAfter2Sec, {
         pending: "Login ...",
         // success: "Login Success 👌",
         error: "Login Faild 🤯",
       });
       setTimeout(() => {
-        // set a 3seconds timeout for authentication
+        // set a 2seconds timeout for authentication
 
         if (data.type === "user") {
           navigate("/home");
         } else if (data.type === "admin") {
           navigate("/admin/adminHome");
         }
-      }, 3000);
+      }, 2000);
     } catch (error) {
       setError(error.response.data.error);
       toast.error(error.response.data.error);
       setPassword("");
       setTimeout(() => {
         setError("");
-      }, 3000); //3s
+      }, 2000); //3s
     }
   };
 
