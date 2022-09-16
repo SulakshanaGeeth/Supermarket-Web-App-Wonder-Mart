@@ -9,8 +9,6 @@ import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
 import EditProfile from "./components/UserManagement/EditProfile";
 import AdminDashboard from "./components/AdminDashboard";
-// import CustomerHome from "./components/UserManagement/CustomerHome";
-// import AdminHome from "./components/AdminHome";
 
 //Product managemet Imports
 // import Header from "./components/Header";
@@ -19,6 +17,10 @@ import Home from "./components/Home";
 import About from "./components/About";
 
 //Product delivery Imports
+
+//Cart Management
+import AllProducts from "./components/Cart Management/All_Products";
+import UserCart from "./components/Cart Management/UserCart";
 
 function App() {
   return (
@@ -51,17 +53,18 @@ function App() {
           }
         />
 
+        <Route path="/about" element={<About />} exact />
+
         <Route
-          path="/admin/customerHome"
+          path="/admin/adminHome"
           element={
             <PrivateRoute>
               <AdminDashboard />
             </PrivateRoute>
           }
         />
-
         <Route
-          path="/admin/adminHome"
+          path="/admin/customerHome"
           element={
             <PrivateRoute>
               <AdminDashboard />
@@ -103,6 +106,28 @@ function App() {
             </PrivateRoute>
           }
         />
+        {/*  */}
+        {/*  */}
+        {/* Cart Management */}
+        {/*  */}
+        {/*  */}
+        <Route
+          path="/products"
+          element={
+            <PrivateRoute>
+              <AllProducts />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/Cart"
+          element={
+            <PrivateRoute>
+              <UserCart />
+            </PrivateRoute>
+          }
+        />
+
         {/*  */}
         {/*  */}
         {/* Delivery Routes */}

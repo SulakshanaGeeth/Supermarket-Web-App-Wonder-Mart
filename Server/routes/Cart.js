@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const Cart = require('./../models/Cart');
+const Product = require('./../models/product.model');
 
 router.post('/add/:id',async (req,res) => {
     const objCart = await Cart.findOne({UserID:req.params.id});
@@ -81,5 +82,13 @@ router.delete('/deleteAll/:id', async (req, res) =>{
     .then(() => res.json("User Cart Deleted"))
     .catch((err) => res.json(err.message))
 });
+
+router.get('/getProduct/:type', async (req, res) => {
+    Product.find({productCategory : req.params.type})
+    .then((result) => res.json(result))
+    .catch((err) => res.json(err.message))
+});
+
+
 
 module.exports = router;
