@@ -16,21 +16,20 @@ export default function Header() {
   const username = localStorage.getItem("username");
 
   return (
-    <div className="header">
+    <div className="header" style={{ width: "100%" }}>
       {/* <h1>Header</h1> */}
 
       <Paper
         square
         sx={{
           backgroundColor: "#4caf50",
-          height: "160px",
-          marginBottom: "20px",
-          marginTop: "-7px",
+          height: "110px",
+          paddingBottom: "40px",
         }}
       >
-        <IconButton square sx={{ marginLeft: "800px" }}>
+        <IconButton square sx={{ marginLeft: "45%" }} href="/profile">
           <AccountCircleIcon
-            sx={{ height: "30px", width: "30px", color: "black" }}
+            sx={{ height: "40px", width: "40px", color: "black" }}
           />
           <Typography
             sx={{ marginLeft: "10px", fontSize: "20px", color: "black" }}
@@ -50,7 +49,6 @@ export default function Header() {
 
         <Typography
           sx={{
-            marginTop: "10px",
             marginLeft: "10px",
             fontSize: "30px",
             fontWeight: "bold",

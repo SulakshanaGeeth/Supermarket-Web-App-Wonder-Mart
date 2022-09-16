@@ -70,9 +70,20 @@ function EditProfile() {
 
   return (
     <Fragment>
-      <Header />
-      <div style={{ backgroundColor: "#d1dae8", marginTop: "-40px" }}>
-        <Grid container spacing={0.3} style={{ padding: "45px" }}>
+      <div>
+        <Header />
+      </div>
+      <div
+        style={{
+          backgroundColor: "#d1dae8",
+          marginTop: "0px",
+        }}
+      >
+        <Grid
+          container
+          spacing={0.3}
+          style={{ padding: "45px", marginBottom: "40px" }}
+        >
           <Grid item xs={5}>
             <Item style={{ paddingBottom: "260px" }}>
               <h1 style={{ color: "black" }}>My Account</h1>
