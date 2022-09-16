@@ -128,11 +128,11 @@ export default class AllProducts extends React.Component {
 
     render() {
         return (
-            <div style={{marginLeft:"30px"}}>
+            <div>
 
                 <Header/>
                 
-                <ButtonGroup variant="contained" aria-label="split button" sx={{ position:"absolute", marginLeft:"290px", marginTop:"-60px"}}>
+                <ButtonGroup variant="contained" aria-label="split button" sx={{ position:"absolute", marginLeft:"320px", marginTop:"-10px"}}>
                     <Button sx={{ backgroundColor:"white", color:"black", width:"200px"}} onClick={() => this.catogaryOpen()} endIcon={<ArrowDropDownIcon />} >Catogory</Button>
                     {/* <Button size="medium"
                         
@@ -145,7 +145,7 @@ export default class AllProducts extends React.Component {
                     <Menu
                         id="menu-appbar"
                         sx={{
-                        marginTop:"160px", marginLeft:"310px"
+                        marginTop:"140px", marginLeft:"305px"
                         }}
                         anchorEl={this.state.logo}
                         anchorOrigin={{
