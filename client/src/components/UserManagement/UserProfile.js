@@ -20,6 +20,7 @@ import SendIcon from "@mui/icons-material/Send";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PasswordIcon from "@mui/icons-material/Password";
+import ProfileDetails from "./ProfileDetails";
 
 import EditProfile from "./EditProfile";
 
@@ -79,7 +80,7 @@ function UserProfile() {
                     marginBottom: "20px",
                   }}
                 >
-                  <a href="/profile" style={{ color: "black" }}>
+                  <a href="/profile/" style={{ color: "black" }}>
                     My Profile
                   </a>
                 </Typography>
@@ -126,6 +127,7 @@ function UserProfile() {
             <Item>
               <Container component="main" maxWidth="xs">
                 <CssBaseline />
+                {window.location.pathname === `/profile/` && <ProfileDetails />}
                 {window.location.pathname === `/profile/edit/` && (
                   <EditProfile />
                 )}

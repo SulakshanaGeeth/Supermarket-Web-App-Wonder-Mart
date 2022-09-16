@@ -9,7 +9,7 @@ import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_BASE_URL } from "../constant";
 
-function EditProfile() {
+function ProfileDetails() {
   const [username, setUsername] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   const [email, setEmail] = useState("");
@@ -30,28 +30,6 @@ function EditProfile() {
     fetchUser();
   }, []);
 
-  const updateHandler = (e) => {
-    e.preventDefault();
-    const confirmBox = window.confirm(
-      "Do want to update this Profile Details ?"
-    );
-    if (confirmBox === true) {
-      axios
-        .put(`${BACKEND_BASE_URL}/api/auth/update/${id}`, {
-          username,
-          phoneNumber,
-          email,
-        })
-        .then(() => {
-          toast.success("Update Successfuly");
-          history("/profile/");
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
-  };
-
   return (
     <Box
       sx={{
@@ -62,7 +40,7 @@ function EditProfile() {
       }}
     >
       <Typography component="h1" variant="h5" style={{ color: "black" }}>
-        Edit Personal Information
+        Personal Information
       </Typography>
       <Box component="form" noValidate sx={{ mt: 1 }}>
         <TextField
@@ -75,7 +53,9 @@ function EditProfile() {
           autoComplete="Name"
           autoFocus
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          InputProps={{
+            readOnly: true,
+          }}
         />
         <TextField
           margin="normal"
@@ -87,7 +67,9 @@ function EditProfile() {
           autoComplete="email"
           autoFocus
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          InputProps={{
+            readOnly: true,
+          }}
         />
         <TextField
           margin="normal"
@@ -99,21 +81,13 @@ function EditProfile() {
           autoComplete="phoneNumber"
           autoFocus
           value={phoneNumber}
-          onChange={(e) => setphoneNumber(e.target.value)}
+          InputProps={{
+            readOnly: true,
+          }}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="success"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={updateHandler}
-        >
-          Update Details
-        </Button>
       </Box>
     </Box>
   );
 }
 
-export default EditProfile;
+export default ProfileDetails;
