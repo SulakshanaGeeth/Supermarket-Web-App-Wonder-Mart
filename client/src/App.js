@@ -7,7 +7,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 //User Management Imports
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
-import EditProfile from "./components/UserManagement/EditProfile";
+// import EditProfile from "./components/UserManagement/EditProfile";
+import UserProfile from "./components/UserManagement/UserProfile";
 import AdminDashboard from "./components/AdminDashboard";
 
 //Product managemet Imports
@@ -41,7 +42,16 @@ function App() {
           path="/profile"
           element={
             <PrivateRoute>
-              <EditProfile />
+              <UserProfile />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/profile/edit"
+          element={
+            <PrivateRoute>
+              <UserProfile />
             </PrivateRoute>
           }
         />
