@@ -25,7 +25,7 @@ const Logout = () => {
 
               localStorage.removeItem("username");
               localStorage.removeItem("id");
-              localStorage.setItem("authToken", undefined);
+              localStorage.setItem("authToken", null);
               localStorage.removeItem("email");
               localStorage.removeItem("type");
               window.location = "/";
