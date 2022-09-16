@@ -130,7 +130,7 @@ export default class AllProducts extends React.Component {
         return (
             <div>
 
-                <Header/>
+                <Header />
                 
                 <ButtonGroup variant="contained" aria-label="split button" sx={{ position:"absolute", marginLeft:"320px", marginTop:"-10px"}}>
                     <Button sx={{ backgroundColor:"white", color:"black", width:"200px"}} onClick={() => this.catogaryOpen()} endIcon={<ArrowDropDownIcon />} >Catogory</Button>
@@ -179,6 +179,8 @@ export default class AllProducts extends React.Component {
                         Search
                     </Button>
                 </ButtonGroup>
+
+                <div style={{marginBottom:"50px"}} ></div>
 
                 {
                     this.state.Products.map((product) =>(

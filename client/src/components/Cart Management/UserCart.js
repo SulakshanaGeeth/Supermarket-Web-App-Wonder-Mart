@@ -180,7 +180,7 @@ export default class UserCart extends React.Component {
                     </Card>
                     ))}
 
-                    <Toolbar sx={{backgroundColor:"#b2fab4", width: "808px", marginLeft:"300px"}} >
+                    <Toolbar sx={{backgroundColor:"#b2fab4", width: "850px", marginLeft:"300px"}} >
                         <Typography variant="body2" color="text.secondary" sx={{fontWeight:"bold", marginLeft:"100px", fontSize:"30px"}}>
                                     
                                     Total Amount   
