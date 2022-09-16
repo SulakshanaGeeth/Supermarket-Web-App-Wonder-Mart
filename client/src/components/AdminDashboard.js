@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -11,12 +12,35 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import AllInboxIcon from "@material-ui/icons/AllInbox";
+import AirportShuttleIcon from "@material-ui/icons/AirportShuttle";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import { useNavigate, useParams } from "react-router-dom";
+import { Logout } from "./UserManagement/utils/LogoutHandler";
+
+import AdminHome from "./AdminHome";
+
+//User Management Imports
+import CustomerHome from "./UserManagement/CustomerHome";
+
+//Product managemet Imports
+import Product from "./Product/Products";
+import ProductDetail from "./Product/ProductDetail";
+import AddProduct from "./Product/AddProduct";
+
+//Product delivery Imports
+import AllDpersons from "./DeliveryManagement/AllDperson";
+import AddDeperson from "./DeliveryManagement/AddDperson";
+import DpersonEdit from "./DeliveryManagement/Dedit";
 
 const drawerWidth = 240;
 
 export default function AdminDashboard() {
+  const username = localStorage.getItem("username");
+
+  const history = useNavigate();
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
@@ -26,8 +50,14 @@ export default function AdminDashboard() {
       >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
-            Clipped drawer
+            Wonder Mart
           </Typography>
+          <div style={{ marginLeft: "auto", marginRight: "0" }}>
+            <h5>Admin {username}</h5>
+          </div>
+          <div style={{ marginLeft: "15px", marginRight: "0" }}>
+            <AccountCircleIcon style={{ fontSize: "350%" }} />
+          </div>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -43,65 +73,147 @@ export default function AdminDashboard() {
       >
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
-          <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+          <List style={{ marginTop: "40px" }}>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  // setpageNo("1");
+                  history(`/admin/customerHome`);
+                }}
+              >
+                <ListItemIcon>
+                  <SupervisorAccountIcon />
+                </ListItemIcon>
+                <ListItemText primary="Customers" />
+              </ListItemButton>
+            </ListItem>
           </List>
-          <Divider />
+          <Divider style={{ backgroundColor: "black" }} />
           <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  // setpageNo("2");
+                  history(`/admin/products`);
+                }}
+              >
+                <ListItemIcon>
+                  <AllInboxIcon />
+                </ListItemIcon>
+                <ListItemText primary="Products" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider style={{ backgroundColor: "black" }} />
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  // setpageNo("3");
+                  history("/admin/allPersons");
+                }}
+              >
+                <ListItemIcon>
+                  <AirportShuttleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Delivery" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider style={{ backgroundColor: "black" }} />
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  Logout();
+                }}
+              >
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary="Logout" />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Rhoncus
-          dolor purus non enim praesent elementum facilisis leo vel. Risus at
-          ultrices mi tempus imperdiet. Semper risus in hendrerit gravida rutrum
-          quisque non tellus. Convallis convallis tellus id interdum velit
-          laoreet id donec ultrices. Odio morbi quis commodo odio aenean sed
-          adipiscing. Amet nisl suscipit adipiscing bibendum est ultricies
-          integer quis. Cursus euismod quis viverra nibh cras. Metus vulputate
-          eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo
-          quis imperdiet massa tincidunt. Cras tincidunt lobortis feugiat
-          vivamus at augue. At augue eget arcu dictum varius duis at consectetur
-          lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa sapien
-          faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est
-          ullamcorper eget nulla facilisi etiam dignissim diam. Pulvinar
-          elementum integer enim neque volutpat ac tincidunt. Ornare suspendisse
-          sed nisi lacus sed viverra tellus. Purus sit amet volutpat consequat
-          mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis
-          risus sed vulputate odio. Morbi tincidunt ornare massa eget egestas
-          purus viverra accumsan in. In hendrerit gravida rutrum quisque non
-          tellus orci ac. Pellentesque nec nam aliquam sem et tortor. Habitant
-          morbi tristique senectus et. Adipiscing elit duis tristique
-          sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-          posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
-      </Box>
+      {/*  */}
+      {/* Customer */}
+      {/*  */}
+      {window.location.pathname === `/admin/adminHome` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <AdminHome />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/customerHome` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <CustomerHome />
+          </div>
+        </Box>
+      )}
+      {/*  */}
+      {/*  */}
+      {/* Product */}
+      {/*  */}
+      {/*  */}
+      {window.location.pathname === `/admin/products` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <Product />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/addProduct/` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <AddProduct />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/product/${useParams().id}` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <ProductDetail />
+          </div>
+        </Box>
+      )}
+      {/*  */}
+      {/*  */}
+      {/* Delivery */}
+      {/*  */}
+      {/*  */}
+      {window.location.pathname === `/admin/allPersons` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <AllDpersons />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/addPerson/` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <AddDeperson />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/edit/${useParams().id}` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <DpersonEdit />
+          </div>
+        </Box>
+      )}
     </Box>
   );
 }

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
+
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import {
@@ -56,7 +55,6 @@ const ProductDetail = () => {
 
   return (
     <div>
-      <Header />
       {inputs && (
         <form onSubmit={handleSubmit}>
           <Box
@@ -138,7 +136,6 @@ const ProductDetail = () => {
           </Box>
         </form>
       )}
-      <Footer />
     </div>
   );
 };

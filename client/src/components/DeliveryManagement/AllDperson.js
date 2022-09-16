@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axois from "axios";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
@@ -31,16 +29,15 @@ function AllDpersons() {
     window.location.reload();
   };
   const navAdd = () => {
-    window.location = "/add";
+    window.location = "/admin/addPerson/";
   };
 
   const navEdit = (id) => {
-    window.location = `/edit/${id}`;
+    window.location = `/admin/edit/${id}`;
   };
 
   return (
     <div>
-      <Header />
       <Button variant="primary" onClick={() => navAdd()}>
         Add Delivery person
       </Button>
@@ -77,7 +74,6 @@ function AllDpersons() {
           ))}
         </tbody>
       </Table>
-      <Footer />
     </div>
   );
 }

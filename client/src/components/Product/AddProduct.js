@@ -1,6 +1,5 @@
 import React, { useState, Fragment } from "react";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
+
 import {
   Box,
   Button,
@@ -54,7 +53,6 @@ const AddProduct = () => {
   };
   return (
     <Fragment>
-      <Header />
       <form onSubmit={handleSubmit}>
         <Box
           display="flex"
@@ -133,7 +131,6 @@ const AddProduct = () => {
           </Button>
         </Box>
       </form>
-      <Footer />
     </Fragment>
   );
 };
