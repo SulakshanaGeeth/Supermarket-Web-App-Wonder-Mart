@@ -44,3 +44,4 @@ app.listen(PORT, () => {
 app.use("/api/auth", require("./routes/auth"));
 
 app.use("/cart", require("./routes/Cart"));
+app.use("/order", require("./routes/Order"));
