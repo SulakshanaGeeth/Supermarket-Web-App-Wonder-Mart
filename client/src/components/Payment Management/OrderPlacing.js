@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Header from "../HeaderFooter/Header";
 import Footer from "../HeaderFooter/Footer";
+import {OrderPlace} from "./Alert/Alert";
 
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
@@ -15,7 +16,7 @@ export default class OrderCreate extends React.Component {
         super(props);
 
         this.state = {
-            UserID:"U001",
+            UserID:localStorage.getItem("id"),
             cardno:"",
             exp:null, 
             cvv:0, 
@@ -65,7 +66,18 @@ export default class OrderCreate extends React.Component {
         await axios.post('http://localhost:8070/order/add/' , Order)
             .then((res) => this.setState({message: res.data, stat:res.status}))
             .catch((err) => console.log(err.message));
+
+        setTimeout(() => this.OrderPlacing(), 2000)
       
+    }
+
+    async OrderPlacing() {
+        if(this.state.stat === 200) {
+            await axios.delete('http://localhost:8070/cart/deleteAll/' + this.state.Cart._id);
+
+            OrderPlace("success", "Order Placed", this.state.message);
+        }
+        else {OrderPlace("error", "Error", this.state.message);}
     }
 
     render() {
