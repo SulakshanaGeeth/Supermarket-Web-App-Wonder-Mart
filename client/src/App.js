@@ -22,6 +22,9 @@ import About from "./components/About";
 import AllProducts from "./components/Cart Management/All_Products";
 import UserCart from "./components/Cart Management/UserCart";
 
+//Payment Management
+import OrderCreate from "./components/Payment Management/OrderPlacing";
+
 function App() {
   return (
     <div className="App">
@@ -117,6 +120,21 @@ function App() {
           element={
             <PrivateRoute>
               <UserCart />
+            </PrivateRoute>
+          }
+        />
+
+        {/*  */}
+        {/*  */}
+        {/* Payment Management */}
+        {/*  */}
+        {/*  */}
+
+        <Route
+          path="/OrderPlace"
+          element={
+            <PrivateRoute>
+              <OrderCreate />
             </PrivateRoute>
           }
         />
