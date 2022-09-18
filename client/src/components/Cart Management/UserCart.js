@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 
-import {AlertDeleteCart} from "./Alert/Alert";
+import {AlertDeleteCart, CheckoutRes} from "./Alert/Alert";
 import Header from "../HeaderFooter/Header";
 import Footer from "../HeaderFooter/Footer";
 
@@ -127,6 +127,14 @@ export default class UserCart extends React.Component {
           }
     }
 
+    Checkout(){
+        if(this.state.Total === 0) {
+            CheckoutRes("info", "Cart is Null", "Please add a Product to checkout")
+        }else {
+            window.location = "/OrderPlace";
+        }
+    }
+
     render() {
         return (
             <div>
@@ -218,6 +226,17 @@ export default class UserCart extends React.Component {
                         <Alert severity="success">{this.state.message}</Alert>                        
                                                     
                     </Snackbar>
+
+                    <Button onClick={() => this.Checkout()} variant="outlined" 
+                        sx={{
+                            backgroundColor:"#2196f3", 
+                            color:"black", 
+                            width:"250px", 
+                            left:"900px", 
+                            top:"30px",
+                            borderRadius:"20px", 
+                            fontSize:"20px"
+                        }} > Checkout </Button>
 
 
 
