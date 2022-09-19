@@ -24,6 +24,7 @@ import UserCart from "./components/Cart Management/UserCart";
 
 //Payment Management
 import OrderCreate from "./components/Payment Management/OrderPlacing";
+import Orders from "./components/Payment Management/Orders";
 
 function App() {
   return (
@@ -135,6 +136,15 @@ function App() {
           element={
             <PrivateRoute>
               <OrderCreate />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/Orders"
+          element={
+            <PrivateRoute>
+              <Orders />
             </PrivateRoute>
           }
         />
