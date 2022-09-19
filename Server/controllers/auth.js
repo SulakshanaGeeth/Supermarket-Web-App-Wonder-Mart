@@ -85,7 +85,7 @@ exports.get = async (req, res) => {
 
 exports.getById = async (req, res) => {
   const { id } = req.params;
-  await User.findOne({ empId: id })
+  await User.findOne({ _id: id })
     .then((user) => res.json(user))
     .catch((err) => res.status(500).json({ err }));
 };
@@ -100,7 +100,7 @@ exports.updateById = async (req, res) => {
     email,
     phoneNumber,
   })
-    .then(() => res.json({ message: "Successfully Update the Employee" }))
+    .then(() => res.json({ message: "Successfully Update the details" }))
     .catch((err) => res.status(500).json({ err }));
 };
 
@@ -110,6 +110,49 @@ exports.deleteById = async (req, res) => {
   await User.findByIdAndDelete(id)
     .then(() => res.json({ success: true }))
     .catch((err) => res.status(500).json({ success: false, err }));
+};
+
+exports.changePassword = async (req, res) => {
+  const { id } = req.params;
+
+  let { password, newpassword } = req.body;
+
+  try {
+    const user = await User.findOne({ _id: id }).select("+password");
+
+    console.log(user);
+
+    if (!user) {
+      //true
+      return res.status(401).json({
+        success: false,
+        available: "User does not exists. Please create an account !",
+      });
+    }
+
+    const isMatch = await user.matchPasswords(password); //matching the passwords from the received from request and from the db
+
+    if (!isMatch) {
+      return res
+        .status(401)
+        .json({ success: false, error: "Invalid Current Password" });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    newpassword = await bcrypt.hash(newpassword, salt);
+  } catch (error) {
+    res.status(500).json({
+      // 500 internal server error
+      success: false,
+      error: error.message,
+    });
+  }
+
+  await User.findByIdAndUpdate(id, {
+    password: newpassword,
+  })
+    .then(() => res.json({ message: "Successfully Update the Password" }))
+    .catch((err) => res.status(500).json({ err }));
 };
 
 const sendToken = (user, statusCode, res) => {
