@@ -2,6 +2,7 @@ import React from "react";
 
 import Receiving from "./Receiving";
 import Delivered from "./Delivered";
+import Delivering from "./Delivering";
 import Header from "../HeaderFooter/Header";
 import Footer from "../HeaderFooter/Footer";
 
@@ -49,6 +50,7 @@ export default class Orders extends React.Component{
 
                 <Container sx={{display:this.state.receiveShow, marginTop:"25px", marginBottom:"25px"}} >
                     <Receiving/>
+                    <Delivering/>
                 </Container>
                 
                 <Container sx={{display:this.state.deliveredShow, marginTop:"25px", marginBottom:"25px"}} >
