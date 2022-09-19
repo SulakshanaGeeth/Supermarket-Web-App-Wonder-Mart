@@ -16,7 +16,7 @@ export default class Delivered extends React.Component {
 
         this.state = {
             Orders:[],
-            UserID:"U001"
+            UserID:localStorage.getItem("id"),
         }
     }
 
@@ -85,7 +85,7 @@ export default class Delivered extends React.Component {
                                     backgroundColor:"#00e676", 
                                     color:"black",
                                     marginLeft:"500px",
-                                    marginTop:"-100px",
+                                    marginTop:"-110px",
                                     width:"180px" }} >                                    
                                 View Order
                             </Button> 

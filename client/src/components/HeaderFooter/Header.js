@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
@@ -95,7 +95,7 @@ export default function Header() {
             </Typography>
           </IconButton>
 
-          <IconButton square sx={{ marginLeft: "100px" }}>
+          <IconButton square sx={{ marginLeft: "100px" }} href="/Orders" >
             <ListAltIcon
               sx={{ height: "30px", width: "30px", color: "black" }}
             />

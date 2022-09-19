@@ -16,7 +16,7 @@ export default class Receiving extends React.Component {
 
         this.state = {
             Orders:[],
-            UserID:"U001"
+            UserID:localStorage.getItem("id"),
         }
     }
 
