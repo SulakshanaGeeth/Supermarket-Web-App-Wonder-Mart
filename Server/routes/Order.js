@@ -95,7 +95,7 @@ router.put('/cancelled/:id', async (req, res) => {
     const obj = await Order.findById(req.params.id)
     obj.Cancelled = true;
     obj.save()    
-    .then(() => res.json("Order Updated Successfully"))
+    .then(() => res.json("Order Cancelled Successfully"))
     .catch(err => res.status(400).json(`Error: ${err}`))
 });
 
