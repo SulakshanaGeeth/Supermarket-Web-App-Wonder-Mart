@@ -71,13 +71,7 @@ export default function Register() {
       });
 
       setTimeout(() => {
-        // notification.info({
-        //   message: `You are successfully registered.`,
-        //   description: "You can access to the system using your credentials.",
-        //   placement: "top",
-        // });
         history("/"); // after 3seconds it will redirect to the login
-        // this.props.history.push("/");
       }, 3000); //3s
     } catch (error) {
       setError(error.response.data.error);
@@ -147,7 +141,6 @@ export default function Register() {
                       label="Full Name"
                       name="name"
                       autoComplete="Name"
-                      autoFocus
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                     />
@@ -159,7 +152,6 @@ export default function Register() {
                       label="Phone Number"
                       name="phoneNumber"
                       autoComplete="phoneNumber"
-                      autoFocus
                       value={phoneNumber}
                       onChange={(e) => setphoneNumber(e.target.value)}
                     />
@@ -171,7 +163,6 @@ export default function Register() {
                       label="Email Address"
                       name="email"
                       autoComplete="email"
-                      autoFocus
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                     />
