@@ -33,7 +33,7 @@ const theme = createTheme();
 export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [setError] = useState("");
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -85,7 +85,6 @@ export default function Login() {
         }
       }, 2000);
     } catch (error) {
-      setError(error.response.data.error);
       toast.error(error.response.data.error);
       setPassword("");
       setTimeout(() => {

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,7 +16,8 @@ function EditProfile() {
   const [username, setUsername] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+
+  const [open, setOpen] = React.useState(false);
 
   const id = localStorage.getItem("id");
   const history = useNavigate();
@@ -25,31 +29,32 @@ function EditProfile() {
       setUsername(data.username);
       setphoneNumber(data.phoneNumber);
       setEmail(data.email);
-      console.log(username);
     };
-    fetchUser();
-  }, []);
+    fetchUser(); // this function will called only once
+  }, []); //empty dependency array means run only once when the component first renders
 
-  const updateHandler = (e) => {
-    e.preventDefault();
-    const confirmBox = window.confirm(
-      "Do want to update this Profile Details ?"
-    );
-    if (confirmBox === true) {
-      axios
-        .put(`${BACKEND_BASE_URL}/api/auth/update/${id}`, {
-          username,
-          phoneNumber,
-          email,
-        })
-        .then(() => {
-          toast.success("Update Successfuly");
-          history("/profile/");
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const updateHandler = () => {
+    axios
+      .put(`${BACKEND_BASE_URL}/api/auth/update/${id}`, {
+        username,
+        phoneNumber,
+        email,
+      })
+      .then(() => {
+        toast.success("Update Successfuly");
+        history("/profile/");
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (
@@ -60,6 +65,7 @@ function EditProfile() {
         flexDirection: "column",
         alignItems: "center",
       }}
+      style={{ zIndex: "-1" }}
     >
       <Typography component="h1" variant="h5" style={{ color: "black" }}>
         Edit Personal Information
@@ -98,16 +104,41 @@ function EditProfile() {
           value={phoneNumber}
           onChange={(e) => setphoneNumber(e.target.value)}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="success"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={updateHandler}
-        >
-          Update Details
-        </Button>
+
+        <div>
+          <Button
+            fullWidth
+            variant="contained"
+            color="success"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleClickOpen}
+          >
+            Update Details
+          </Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Confirm Update Profile Details?"}
+            </DialogTitle>
+
+            <DialogActions>
+              <Button onClick={handleClose}>No</Button>
+              <Button
+                onClick={() => {
+                  updateHandler();
+                  handleClose();
+                }}
+                autoFocus
+              >
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </Box>
     </Box>
   );

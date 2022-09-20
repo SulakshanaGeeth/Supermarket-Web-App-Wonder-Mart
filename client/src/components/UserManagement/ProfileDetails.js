@@ -20,8 +20,8 @@ function ProfileDetails() {
       setphoneNumber(data.phoneNumber);
       setEmail(data.email);
     };
-    fetchUser();
-  }, []);
+    fetchUser(); // this function will called only once
+  }, []); //empty dependency array means run only once when the component first renders
 
   return (
     <Box

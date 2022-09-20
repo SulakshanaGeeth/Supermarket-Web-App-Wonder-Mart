@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -16,6 +19,7 @@ function ChangePassword() {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [open, setOpen] = React.useState(false);
 
   const [showPassword1, setShowPassword1] = useState(false);
   const handleClickShowPassword1 = () => setShowPassword1(!showPassword1);
@@ -32,34 +36,35 @@ function ChangePassword() {
   const id = localStorage.getItem("id");
   const history = useNavigate();
 
-  const updateHandler = (e) => {
-    e.preventDefault();
-    const confirmBox = window.confirm("Do want to update current password ?");
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
-    if (confirmBox === true) {
-      axios
-        .put(`${BACKEND_BASE_URL}/api/auth/changePass/${id}`, {
-          password,
-          newpassword: newPassword,
-        })
-        .then(() => {
-          //   toast.success("Update Successfuly");
-          //   history("/profile/");
-          setTimeout(() => {
-            // set a 2seconds timeout for authentication
-            toast.success("Update Successfuly");
-            localStorage.removeItem("username");
-            localStorage.removeItem("id");
-            localStorage.setItem("authToken", null);
-            localStorage.removeItem("email");
-            localStorage.removeItem("type");
-            history("/");
-          }, 1000);
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const updateHandler = () => {
+    axios
+      .put(`${BACKEND_BASE_URL}/api/auth/changePass/${id}`, {
+        password,
+        newpassword: newPassword,
+      })
+      .then(() => {
+        setTimeout(() => {
+          // set a 1seconds timeout for authentication
+          toast.success("Update Successfuly");
+          localStorage.removeItem("username");
+          localStorage.removeItem("id");
+          localStorage.setItem("authToken", null);
+          localStorage.removeItem("email");
+          localStorage.removeItem("type");
+          history("/");
+        }, 1000);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   return (
@@ -153,16 +158,40 @@ function ChangePassword() {
             ),
           }}
         />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="success"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={updateHandler}
-        >
-          Update Password
-        </Button>
+        <div>
+          <Button
+            fullWidth
+            variant="contained"
+            color="success"
+            sx={{ mt: 3, mb: 2 }}
+            onClick={handleClickOpen}
+          >
+            Update Details
+          </Button>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">
+              {"Confirm Change Password?"}
+            </DialogTitle>
+
+            <DialogActions>
+              <Button onClick={handleClose}>No</Button>
+              <Button
+                onClick={() => {
+                  updateHandler();
+                  handleClose();
+                }}
+                autoFocus
+              >
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </Box>
     </Box>
   );
