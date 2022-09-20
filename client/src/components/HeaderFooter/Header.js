@@ -11,6 +11,8 @@ import Tab from "@mui/material/Tab";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Logout } from "./../UserManagement/utils/LogoutHandler";
+import Logo from "./Logo.png";
+import { width } from "@mui/system";
 
 export default function Header() {
   const username = localStorage.getItem("username");
@@ -27,7 +29,12 @@ export default function Header() {
           paddingBottom: "40px",
         }}
       >
-        <IconButton square sx={{ marginLeft: "45%" }} href="/profile">
+        <img
+          src={Logo}
+          alt="Logo"
+          style={{ width: "8%", position: "absolute" }}
+        />
+        <IconButton square sx={{ marginLeft: "45%" }} href="/profile/">
           <AccountCircleIcon
             sx={{ height: "40px", width: "40px", color: "black" }}
           />
@@ -38,7 +45,7 @@ export default function Header() {
           </Typography>
         </IconButton>
 
-        <IconButton square sx={{ marginLeft: "300px" }} onClick={Logout}>
+        <IconButton square sx={{ marginLeft: "350px" }} onClick={Logout}>
           <LogoutIcon sx={{ height: "30px", width: "30px", color: "black" }} />
           <Typography
             sx={{ marginLeft: "10px", fontSize: "20px", color: "black" }}
@@ -49,8 +56,9 @@ export default function Header() {
 
         <Typography
           sx={{
-            marginLeft: "10px",
-            fontSize: "30px",
+            marginLeft: "130px",
+            marginTop: "-20px",
+            fontSize: "25px",
             fontWeight: "bold",
             fontFamily: "inherit",
           }}
@@ -61,7 +69,7 @@ export default function Header() {
 
         <Tabs
           aria-label="nav tabs example"
-          sx={{ marginTop: "-50px", marginLeft: "400px" }}
+          sx={{ marginTop: "-15px", marginLeft: "350px" }}
         >
           <Tab
             label="Home"
