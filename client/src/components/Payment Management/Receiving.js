@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 
+import {CancelOrder} from "./Alert/Alert";
+
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -8,6 +10,10 @@ import Grid from '@mui/material/Grid';
 import Divider from '@mui/material/Divider';
 import  Box  from "@mui/material/Box";
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 
 export default class Receiving extends React.Component {
 
@@ -17,6 +23,8 @@ export default class Receiving extends React.Component {
         this.state = {
             Orders:[],
             UserID:localStorage.getItem("id"),
+            cancelOrd: false, 
+            cancelID:""
         }
     }
 
@@ -28,6 +36,22 @@ export default class Receiving extends React.Component {
         })
         .catch((err) => console.error(err.message))
     }
+
+    async cancelOrders() {
+        this.cancelOrdModalClose()
+        
+        await axios.put('http://localhost:8070/order/cancelled/' + this.state.cancelID)
+        .then((res) => {
+            if(res.status === 200) 
+                CancelOrder("success", "Cancelled", res.data);
+            else
+                CancelOrder("error", "Error", res.data);
+        })
+        .catch((err) => console.error(err.message))
+    }
+
+    cancelOrdModal(id) { this.setState({cancelOrd:true, cancelID:id}) }
+    cancelOrdModalClose() { this.setState({cancelOrd:false})}
 
     render() {
         return (
@@ -96,7 +120,8 @@ export default class Receiving extends React.Component {
                                     marginTop:"-60px",
                                     marginLeft:"500px",
                                     width:"180px"
-                                    }} >
+                                    }}
+                                onClick={() => this.cancelOrdModal(item._id)} >
                                 Cancel Order
                             </Button>
 
@@ -104,6 +129,22 @@ export default class Receiving extends React.Component {
                     ))
                 }
 
+                    <Dialog
+                        open={this.state.cancelOrd}
+                        onClose={this.cancelOrdModalClose}
+                        maxWidth="sm"
+                     >
+                        <ReportRoundedIcon  sx={{color:"#d32f2f", fontSize:"80px", marginLeft:"80px"}}/> <br/>
+                         <DialogTitle id="alert-dialog-title" sx={{fontWeight:"bold"}}>
+                            Delete Cart Detals ?
+                        </DialogTitle>
+
+                        <DialogActions sx={{display:"left"}}>
+                            <Button onClick={() => this.cancelOrdModalClose()} sx={{backgroundColor:"#b2ff59", color:"black", marginRight:"150px", position:"absolute"}} >Cancel</Button>
+                            <Button onClick={() => this.cancelOrders()} sx={{backgroundColor:"#ffc947", color:"black"}} autoFocus> Confirm </Button>
+                        </DialogActions>
+
+                    </Dialog>
                 
             </div>
         )
