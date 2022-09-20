@@ -56,6 +56,15 @@ function App() {
           }
         />
 
+        <Route
+          path="/profile/changePassword/"
+          element={
+            <PrivateRoute>
+              <UserProfile />
+            </PrivateRoute>
+          }
+        />
+
         <Route path="/about" element={<About />} exact />
 
         <Route

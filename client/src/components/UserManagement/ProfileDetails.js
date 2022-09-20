@@ -1,23 +1,16 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 import { BACKEND_BASE_URL } from "../constant";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
 
 function ProfileDetails() {
   const [username, setUsername] = useState("");
   const [phoneNumber, setphoneNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
 
   const id = localStorage.getItem("id");
-  const history = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -26,7 +19,6 @@ function ProfileDetails() {
       setUsername(data.username);
       setphoneNumber(data.phoneNumber);
       setEmail(data.email);
-      console.log(username);
     };
     fetchUser();
   }, []);
@@ -52,7 +44,6 @@ function ProfileDetails() {
           label="Full Name"
           name="name"
           autoComplete="Name"
-          autoFocus
           value={username}
           InputProps={{
             readOnly: true,
@@ -66,7 +57,6 @@ function ProfileDetails() {
           label="Email Address"
           name="email"
           autoComplete="email"
-          autoFocus
           value={email}
           InputProps={{
             readOnly: true,
@@ -80,7 +70,6 @@ function ProfileDetails() {
           label="Phone Number"
           name="phoneNumber"
           autoComplete="phoneNumber"
-          autoFocus
           value={phoneNumber}
           InputProps={{
             readOnly: true,

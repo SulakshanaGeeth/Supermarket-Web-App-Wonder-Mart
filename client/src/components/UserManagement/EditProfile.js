@@ -73,7 +73,6 @@ function EditProfile() {
           label="Full Name"
           name="name"
           autoComplete="Name"
-          autoFocus
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
@@ -85,7 +84,6 @@ function EditProfile() {
           label="Email Address"
           name="email"
           autoComplete="email"
-          autoFocus
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
@@ -97,7 +95,6 @@ function EditProfile() {
           label="Phone Number"
           name="phoneNumber"
           autoComplete="phoneNumber"
-          autoFocus
           value={phoneNumber}
           onChange={(e) => setphoneNumber(e.target.value)}
         />

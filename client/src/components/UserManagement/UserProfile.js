@@ -1,26 +1,24 @@
 import Header from "../HeaderFooter/Header";
 import Footer from "../HeaderFooter/Footer";
-import React, { useState, useEffect, Fragment } from "react";
+import React, { Fragment } from "react";
 import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
+
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
-import image from "./assets/Signup.jpg";
+
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
+
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { toast } from "react-toastify";
-import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
-import { BACKEND_BASE_URL } from "../constant";
-import SendIcon from "@mui/icons-material/Send";
+
+import { Link } from "react-router-dom";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import PasswordIcon from "@mui/icons-material/Password";
 import ProfileDetails from "./ProfileDetails";
+import ChangePassword from "./ChangePassword";
 
 import EditProfile from "./EditProfile";
 
@@ -105,22 +103,27 @@ function UserProfile() {
                   Edit Profile
                 </Button>
               </Link>
-              <Button
-                variant="outlined"
-                sx={{
-                  ":hover": {
-                    bgcolor: "#25be6a",
-                    color: "white",
-                  },
-                }}
-                startIcon={<PasswordIcon style={{ fontSize: "350%" }} />}
-                style={{
-                  marginLeft: "20%",
-                  width: "350px",
-                }}
+              <Link
+                to="/profile/changePassword/"
+                style={{ textDecoration: "none" }}
               >
-                Change Password
-              </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    ":hover": {
+                      bgcolor: "#25be6a",
+                      color: "white",
+                    },
+                  }}
+                  startIcon={<PasswordIcon style={{ fontSize: "350%" }} />}
+                  style={{
+                    marginLeft: "20%",
+                    width: "350px",
+                  }}
+                >
+                  Change Password
+                </Button>
+              </Link>
             </Item>
           </Grid>
           <Grid item xs={7}>
@@ -130,6 +133,9 @@ function UserProfile() {
                 {window.location.pathname === `/profile/` && <ProfileDetails />}
                 {window.location.pathname === `/profile/edit/` && (
                   <EditProfile />
+                )}
+                {window.location.pathname === `/profile/changePassword/` && (
+                  <ChangePassword />
                 )}
               </Container>
             </Item>

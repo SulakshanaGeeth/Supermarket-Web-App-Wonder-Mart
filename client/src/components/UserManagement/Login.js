@@ -12,6 +12,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { toast } from "react-toastify";
+import { InputAdornment } from "@material-ui/core";
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -31,6 +34,10 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
   const navigate = useNavigate();
 
@@ -146,11 +153,29 @@ export default function Login() {
                       fullWidth
                       name="password"
                       label="Password"
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       id="password"
                       autoComplete="current-password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
+                      InputProps={{
+                        // This is where the toggle button is added.
+                        endAdornment: (
+                          <InputAdornment position="end">
+                            <Button
+                              aria-label="toggle password visibility"
+                              onClick={handleClickShowPassword}
+                              onMouseDown={handleMouseDownPassword}
+                            >
+                              {showPassword ? (
+                                <Visibility />
+                              ) : (
+                                <VisibilityOff />
+                              )}
+                            </Button>
+                          </InputAdornment>
+                        ),
+                      }}
                     />
 
                     <Button

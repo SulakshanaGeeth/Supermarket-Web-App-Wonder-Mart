@@ -120,8 +120,6 @@ exports.changePassword = async (req, res) => {
   try {
     const user = await User.findOne({ _id: id }).select("+password");
 
-    console.log(user);
-
     if (!user) {
       //true
       return res.status(401).json({
