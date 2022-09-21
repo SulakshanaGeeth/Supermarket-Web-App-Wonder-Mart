@@ -4,7 +4,7 @@ const schema = mongoose.Schema;
 const Cart = new schema({
     UserID: { unique: true, type: String, required: true },
     Products : [ {
-        ProductID : { unique: true, type: String, required: true },
+        ProductID : { type: String, required: true },
         ProductName: { type: String, required: true },
         ProductPrice: { type: Number, required: true },
         Quantity: { type: Number, required: true },

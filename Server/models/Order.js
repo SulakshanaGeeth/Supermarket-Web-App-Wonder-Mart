@@ -19,7 +19,9 @@ const Order = new schema({
     // Discount: { type: Number, required: true},
     Amount: { type: Number, required: true},
     Rider: { type: Boolean, required: true},
-    Deliver: { type: Boolean, required: true}
+    Deliver: { type: Boolean, required: true},
+    Cancelled: { type: Boolean, required: true},
+    Refund: { type: Boolean, required: true }
 })
 
 const order = mongoose.model('order', Order);

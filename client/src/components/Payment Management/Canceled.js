@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import  Box  from "@mui/material/Box";
 import Button from '@mui/material/Button';
 
-export default class Delivered extends React.Component {
+export default class Cancelled extends React.Component {
 
     constructor(props) {
         super(props);
@@ -21,7 +21,7 @@ export default class Delivered extends React.Component {
     }
 
     componentDidMount(){
-        axios.get("http://localhost:8070/order/deliverd/" + this.state.UserID)
+        axios.get("http://localhost:8070/order/cancelled/" + this.state.UserID)
         .then((res) => {
             this.setState({Orders:res.data});
             console.log(res.data)
@@ -36,7 +36,7 @@ export default class Delivered extends React.Component {
     render() {
         return (
             <div>
-
+                
                 {
                     this.state.Orders.map((item) => (
                         <Card sx={{backgroundColor: '#f5f5f5', 
