@@ -29,6 +29,10 @@ export default class Cancelled extends React.Component {
         .catch((err) => console.error(err.message))
     }
 
+    onOrderViewClick(id) {
+        window.location = "/Orders/" + id;
+    }
+
     render() {
         return (
             <div>
@@ -85,7 +89,8 @@ export default class Cancelled extends React.Component {
                                     color:"black",
                                     marginLeft:"500px",
                                     marginTop:"-110px",
-                                    width:"180px" }} >                                    
+                                    width:"180px" }} 
+                                    onClick={() => this.onOrderViewClick(item._id)} >                                    
                                 View Order
                             </Button> 
 
