@@ -153,6 +153,17 @@ exports.changePassword = async (req, res) => {
     .catch((err) => res.status(500).json({ err }));
 };
 
+exports.countDocuments = async (req, res) => {
+  User.countDocuments({ type: "user" }, function (err, docCount) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+
+    res.json({ count: docCount });
+  });
+};
+
 const sendToken = (user, statusCode, res) => {
   //JWT get
   const token = user.getSignedToken();

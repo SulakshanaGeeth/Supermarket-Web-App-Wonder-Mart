@@ -8,6 +8,7 @@ const {
   updateById,
   deleteById,
   changePassword,
+  countDocuments,
 } = require("../controllers/auth");
 
 router.route("/register").post(register);
@@ -23,5 +24,7 @@ router.route("/update/:id").put(updateById);
 router.route("/delete/:id").delete(deleteById);
 
 router.route("/changePass/:id").put(changePassword);
+
+router.route("/getCount").get(countDocuments);
 
 module.exports = router;

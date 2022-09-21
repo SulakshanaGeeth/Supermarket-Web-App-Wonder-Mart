@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -19,6 +18,7 @@ import AirportShuttleIcon from "@material-ui/icons/AirportShuttle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useNavigate, useParams } from "react-router-dom";
 import { Logout } from "./UserManagement/utils/LogoutHandler";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 import AdminHome from "./AdminHome";
 
@@ -117,6 +117,22 @@ export default function AdminDashboard() {
                   <AirportShuttleIcon />
                 </ListItemIcon>
                 <ListItemText primary="Delivery" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider style={{ backgroundColor: "black" }} />
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
+                  // setpageNo("4");
+                  history("");
+                }}
+              >
+                <ListItemIcon>
+                  <ReceiptLongIcon />
+                </ListItemIcon>
+                <ListItemText primary="Order" />
               </ListItemButton>
             </ListItem>
           </List>
