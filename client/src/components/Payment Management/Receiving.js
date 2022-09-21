@@ -53,6 +53,10 @@ export default class Receiving extends React.Component {
     cancelOrdModal(id) { this.setState({cancelOrd:true, cancelID:id}) }
     cancelOrdModalClose() { this.setState({cancelOrd:false})}
 
+    onOrderViewClick(id) {
+        window.location = "/Orders/" + id;
+    }
+
     render() {
         return (
             <div>
@@ -109,7 +113,8 @@ export default class Receiving extends React.Component {
                                     color:"black",
                                     marginLeft:"500px",
                                     marginTop:"-140px",
-                                    width:"180px" }} >                                    
+                                    width:"180px" }} 
+                                    onClick={() => this.onOrderViewClick(item._id)} >                                    
                                 View Order
                             </Button> 
 
