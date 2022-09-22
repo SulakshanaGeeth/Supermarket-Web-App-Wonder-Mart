@@ -24,6 +24,7 @@ import AdminHome from "./AdminHome";
 
 //User Management Imports
 import CustomerHome from "./UserManagement/CustomerHome";
+import CustomerDetails from "./UserManagement/CustomerDetails";
 
 //Product managemet Imports
 import Product from "./Product/Products";
@@ -132,7 +133,7 @@ export default function AdminDashboard() {
                 <ListItemIcon>
                   <ReceiptLongIcon />
                 </ListItemIcon>
-                <ListItemText primary="Order" />
+                <ListItemText primary="Orders" />
               </ListItemButton>
             </ListItem>
           </List>
@@ -169,6 +170,14 @@ export default function AdminDashboard() {
           <Toolbar />
           <div>
             <CustomerHome />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/customerDetails` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <CustomerDetails />
           </div>
         </Box>
       )}

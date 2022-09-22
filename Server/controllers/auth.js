@@ -1,6 +1,5 @@
 const User = require("../models/auth");
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
 
 exports.register = async (req, res) => {
   const { username, phoneNumber, email, password, type } = req.body;
@@ -87,6 +86,12 @@ exports.getById = async (req, res) => {
   const { id } = req.params;
   await User.findOne({ _id: id })
     .then((user) => res.json(user))
+    .catch((err) => res.status(500).json({ err }));
+};
+
+exports.getUsers = async (req, res) => {
+  await User.find({ type: "user" })
+    .then((users) => res.json(users))
     .catch((err) => res.status(500).json({ err }));
 };
 

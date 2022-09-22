@@ -58,7 +58,7 @@ export default function CustomerHome() {
 
               <Button
                 variant="contained"
-                href="#outlined-buttons"
+                href="/admin/customerDetails"
                 style={{
                   display: "inline-block",
                   marginTop: "20px",

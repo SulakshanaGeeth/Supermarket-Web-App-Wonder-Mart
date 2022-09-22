@@ -5,6 +5,7 @@ const {
   login,
   get,
   getById,
+  getUsers,
   updateById,
   deleteById,
   changePassword,
@@ -18,6 +19,8 @@ router.route("/login").post(login);
 router.route("/").get(get);
 
 router.route("/get/:id").get(getById);
+
+router.route("/users").get(getUsers);
 
 router.route("/update/:id").put(updateById);
 

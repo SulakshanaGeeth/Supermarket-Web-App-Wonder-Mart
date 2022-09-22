@@ -87,6 +87,14 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/admin/customerDetails"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
         <Route path="/home" element={<Home />} exact />
         {/*  */}
         {/*  */}
