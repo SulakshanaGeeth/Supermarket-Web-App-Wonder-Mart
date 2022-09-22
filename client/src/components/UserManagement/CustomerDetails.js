@@ -15,6 +15,11 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogTitle from "@mui/material/DialogTitle";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -61,6 +66,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function CustomerDetails() {
   const [users, setUsers] = useState([]);
 
+  const [open, setOpen] = React.useState(false);
+
+  const history = useNavigate();
+
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch(`${BACKEND_BASE_URL}/api/auth/users`);
@@ -89,6 +98,26 @@ export default function CustomerDetails() {
         alert(err.message);
       });
   }
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deleteHandler = (id) => {
+    axios
+      .delete(`${BACKEND_BASE_URL}/api/auth/delete/${id}`)
+      .then(() => {
+        toast.success("Delete Successfuly");
+        history("/admin/customerHome");
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
 
   return (
     <div>
@@ -164,9 +193,47 @@ export default function CustomerDetails() {
                 <TableCell align="center">{row.phoneNumber}</TableCell>
                 <TableCell align="center">{row.email}</TableCell>
                 <TableCell align="center">
-                  <IconButton aria-label="delete">
+                  <IconButton aria-label="delete" onClick={handleClickOpen}>
                     <DeleteIcon style={{ color: "red" }} />
                   </IconButton>
+                  <Dialog
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                  >
+                    <DialogTitle id="alert-dialog-title">
+                      {`Confirm Delete Customer ${row.username} ?`}
+                    </DialogTitle>
+
+                    <DialogActions>
+                      <Button
+                        onClick={() => {
+                          toast.info("You clicked NO", {
+                            position: "top-right",
+                            autoClose: 500,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                          });
+                          handleClose();
+                        }}
+                      >
+                        No
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          deleteHandler(row._id);
+                          handleClose();
+                        }}
+                        autoFocus
+                      >
+                        Yes
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
                 </TableCell>
               </TableRow>
             ))}
