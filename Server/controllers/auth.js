@@ -181,6 +181,12 @@ exports.countOrders = async (req, res) => {
   });
 };
 
+exports.getOrders = async (req, res) => {
+  await Order.find()
+    .then((orders) => res.json(orders))
+    .catch((err) => res.status(500).json({ err }));
+};
+
 const sendToken = (user, statusCode, res) => {
   //JWT get
   const token = user.getSignedToken();
