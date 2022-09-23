@@ -1,4 +1,5 @@
 const User = require("../models/auth");
+const Order = require("./../models/Order");
 const bcrypt = require("bcrypt");
 
 exports.register = async (req, res) => {
@@ -159,13 +160,24 @@ exports.changePassword = async (req, res) => {
 };
 
 exports.countDocuments = async (req, res) => {
-  User.countDocuments({ type: "user" }, function (err, docCount) {
+  User.countDocuments({ type: "user" }, function (err, doCount) {
     if (err) {
       res.send(err);
       return;
     }
 
-    res.json({ count: docCount });
+    res.json({ count: doCount });
+  });
+};
+
+exports.countOrders = async (req, res) => {
+  Order.countDocuments({}, function (err, doCount) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+
+    res.json({ count: doCount });
   });
 };
 

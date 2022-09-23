@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
+import ReplyIcon from "@mui/icons-material/Reply";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -121,9 +122,9 @@ export default function CustomerDetails() {
 
   return (
     <div>
-      <Button variant="contained" href="/admin/customerHome">
-        Back
-      </Button>
+      <IconButton aria-label="delete" href="/admin/customerHome">
+        <ReplyIcon style={{ fontSize: "200%" }} />
+      </IconButton>
       <Typography variant="h3" align="center" style={{ fontFamily: "serif" }}>
         Customer Details
       </Typography>

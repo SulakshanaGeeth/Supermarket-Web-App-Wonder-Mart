@@ -19,13 +19,23 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 export default function CustomerHome() {
-  const [count, setCount] = useState("");
+  const [countCus, setCountCus] = useState("");
+  const [countOrder, setCountOrder] = useState("");
 
   useEffect(() => {
     const getCount = async () => {
       const res = await fetch(`${BACKEND_BASE_URL}/api/auth/getCount`);
       const data = await res.json();
-      setCount(data.count);
+      setCountCus(data.count);
+    };
+    getCount(); // this function will called only once
+  }, []); //empty dependency array means run only once when the component first renders
+
+  useEffect(() => {
+    const getCount = async () => {
+      const res = await fetch(`${BACKEND_BASE_URL}/api/auth/getOrderCount`);
+      const data = await res.json();
+      setCountOrder(data.count);
     };
     getCount(); // this function will called only once
   }, []); //empty dependency array means run only once when the component first renders
@@ -51,7 +61,7 @@ export default function CustomerHome() {
                       style={{ fontSize: "120%", marginRight: "20px" }}
                     />
                   }
-                  label={count}
+                  label={countCus}
                   style={{ width: "50%", height: "20%", fontSize: "80%" }}
                 />
               </div>
@@ -82,7 +92,7 @@ export default function CustomerHome() {
                       style={{ fontSize: "120%", marginRight: "20px" }}
                     />
                   }
-                  label={count}
+                  label={countOrder}
                   style={{ width: "50%", height: "20%", fontSize: "80%" }}
                 />
               </div>
