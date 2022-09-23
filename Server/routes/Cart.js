@@ -6,6 +6,7 @@ const Product = require('./../models/product.model');
 
 router.post('/add/:id',async (req,res) => {
     const objCart = await Cart.findOne({UserID:req.params.id});
+    //console.log(req.body.Products);
 
     if(objCart) {
         if(objCart.Products.filter((obj) => obj.ProductID == req.body.Products.ProductID ).length == 1) {

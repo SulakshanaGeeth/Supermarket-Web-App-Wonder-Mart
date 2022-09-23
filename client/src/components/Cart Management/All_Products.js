@@ -72,7 +72,7 @@ export default class AllProducts extends React.Component {
                 }
             }
 
-            //console.log(Cart);
+            console.log(Cart);
 
             await axios.post('http://localhost:8070/cart/add/' + this.state.UserID, Cart)
             .then((res) => {console.log(res); this.setState({message:res.data, status:res.status});})
@@ -81,7 +81,7 @@ export default class AllProducts extends React.Component {
             this.setState({Item:[]});
 
             if(this.state.status === 200)
-                this.setState({variant:"success"});
+               this.setState({variant:"success"});
 
             this.snackbar()
 
