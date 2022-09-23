@@ -9,24 +9,13 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import axios from "axios";
 import { BACKEND_BASE_URL } from "../constant";
 import IconButton from "@mui/material/IconButton";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 import ReplyIcon from "@mui/icons-material/Reply";
 import JsPDF from "jspdf";
 
 export default function OrderDetails() {
   const [orders, setOrders] = useState([]);
-
-  //   const [total, setTotal] = useState(0);
-
-  const [open, setOpen] = React.useState(false);
-
-  const [total, setTotal] = useState(0);
-
-  const history = useNavigate();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -36,26 +25,6 @@ export default function OrderDetails() {
     };
     fetchUser(); // this function will called only once
   }, []); //empty dependency array means run only once when the component first renders
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const deleteHandler = (id) => {
-    axios
-      .delete(`${BACKEND_BASE_URL}/api/auth/delete/${id}`)
-      .then(() => {
-        toast.success("Delete Successfuly");
-        history("/admin/customerHome");
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
 
   const generatePDF = () => {
     const report = new JsPDF("portrait", "pt", "a2");
