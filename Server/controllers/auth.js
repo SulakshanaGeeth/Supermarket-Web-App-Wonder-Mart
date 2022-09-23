@@ -1,6 +1,6 @@
 const User = require("../models/auth");
+const Order = require("./../models/Order");
 const bcrypt = require("bcrypt");
-const crypto = require("crypto");
 
 exports.register = async (req, res) => {
   const { username, phoneNumber, email, password, type } = req.body;
@@ -90,6 +90,12 @@ exports.getById = async (req, res) => {
     .catch((err) => res.status(500).json({ err }));
 };
 
+exports.getUsers = async (req, res) => {
+  await User.find({ type: "user" })
+    .then((users) => res.json(users))
+    .catch((err) => res.status(500).json({ err }));
+};
+
 exports.updateById = async (req, res) => {
   const { id } = req.params;
 
@@ -150,6 +156,34 @@ exports.changePassword = async (req, res) => {
     password: newpassword,
   })
     .then(() => res.json({ message: "Successfully Update the Password" }))
+    .catch((err) => res.status(500).json({ err }));
+};
+
+exports.countDocuments = async (req, res) => {
+  User.countDocuments({ type: "user" }, function (err, doCount) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+
+    res.json({ count: doCount });
+  });
+};
+
+exports.countOrders = async (req, res) => {
+  Order.countDocuments({}, function (err, doCount) {
+    if (err) {
+      res.send(err);
+      return;
+    }
+
+    res.json({ count: doCount });
+  });
+};
+
+exports.getOrders = async (req, res) => {
+  await Order.find()
+    .then((orders) => res.json(orders))
     .catch((err) => res.status(500).json({ err }));
 };
 

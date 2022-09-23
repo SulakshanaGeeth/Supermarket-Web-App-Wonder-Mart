@@ -57,14 +57,14 @@ function UserProfile() {
         <Grid
           container
           spacing={0.3}
-          style={{ padding: "45px", marginBottom: "40px" }}
+          style={{ padding: "45px", marginBottom: "0px" }}
         >
           <Grid item xs={5}>
             <Item
               style={{
                 display: "block",
                 boxSizing: "border-box",
-                height: "300px",
+                height: "340px",
                 backgroundColor: "#7ed321",
                 clipPath: "ellipse(93% 100% at 77.09% 0%)",
                 paddingBottom: "30px",
@@ -142,7 +142,7 @@ function UserProfile() {
           </Grid>
         </Grid>
       </div>
-      <div style={{ marginTop: "-100px" }}>
+      <div style={{ marginTop: "-97px" }}>
         <Footer />
       </div>
     </Fragment>

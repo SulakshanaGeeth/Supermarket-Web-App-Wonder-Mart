@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import AppBar from "@mui/material/AppBar";
@@ -19,11 +18,14 @@ import AirportShuttleIcon from "@material-ui/icons/AirportShuttle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useNavigate, useParams } from "react-router-dom";
 import { Logout } from "./UserManagement/utils/LogoutHandler";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
 
 import AdminHome from "./AdminHome";
 
 //User Management Imports
 import CustomerHome from "./UserManagement/CustomerHome";
+import CustomerDetails from "./UserManagement/CustomerDetails";
+import OrderDetails from "./UserManagement/OrderDetails";
 
 //Product managemet Imports
 import Product from "./Product/Products";
@@ -125,6 +127,22 @@ export default function AdminDashboard() {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
+                  // setpageNo("4");
+                  history("");
+                }}
+              >
+                <ListItemIcon>
+                  <ReceiptLongIcon />
+                </ListItemIcon>
+                <ListItemText primary="Orders" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider style={{ backgroundColor: "black" }} />
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => {
                   Logout();
                 }}
               >
@@ -153,6 +171,22 @@ export default function AdminDashboard() {
           <Toolbar />
           <div>
             <CustomerHome />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/customerDetails` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <CustomerDetails />
+          </div>
+        </Box>
+      )}
+      {window.location.pathname === `/admin/orderDetails` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <OrderDetails />
           </div>
         </Box>
       )}

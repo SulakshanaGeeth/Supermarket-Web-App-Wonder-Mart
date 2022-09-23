@@ -12,7 +12,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import { Logout } from "./../UserManagement/utils/LogoutHandler";
 import Logo from "./Logo.png";
-import { width } from "@mui/system";
 
 export default function Header() {
   const username = localStorage.getItem("username");
@@ -103,7 +102,7 @@ export default function Header() {
             </Typography>
           </IconButton>
 
-          <IconButton square sx={{ marginLeft: "100px" }} href="/Orders" >
+          <IconButton square sx={{ marginLeft: "100px" }} href="/Orders">
             <ListAltIcon
               sx={{ height: "30px", width: "30px", color: "black" }}
             />
