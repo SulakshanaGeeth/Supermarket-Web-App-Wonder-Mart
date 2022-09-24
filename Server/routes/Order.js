@@ -38,8 +38,14 @@ router.get("/place", async (req, res) => {
     .catch((err) => res.status(err.message));
 });
 
-router.get("/cancelled", async (req, res) => {
-  Order.find({ Deliver: "false", Rider: "false",Cancelled: "true" })
+router.get("/cancelled/pen", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "true", Refund:'false' })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(err.message));
+});
+
+router.get("/cancelled/", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "true", Refund:'true' })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
