@@ -42,7 +42,7 @@ const OrderView = () => {
         })
         .catch((error) => console.log(error))
 
-        console.log(Products)
+        // console.log(Products)
 
     }, []);
 
@@ -50,9 +50,9 @@ const OrderView = () => {
         <div>
             <Header />
 
-            {/* <img alt="WMlogo" src={logo} style={{width:"100px", height:"100px", marginTop:"25px", marginLeft:"40%"}} />
-            <Typography variant="h2" sx={{position:"absolute", marginTop:"-6%", marginLeft:"48%"}} > Wonder Mart </Typography>  */}
-            <Typography variant="h2" sx={{position:"relative", marginTop:"1%", marginLeft:"45%"}} > Invoice </Typography>
+            <img alt="WMlogo" src={logo} style={{width:"100px", height:"100px", marginTop:"25px", marginLeft:"60%",position:"absolute"}} />
+            <Typography variant="h4" sx={{position:"absolute", marginTop:"8%", marginLeft:"56%"}} > Wonder Mart </Typography> 
+            <Typography variant="h1" sx={{position:"relative", marginTop:"1%", marginLeft:"17%"}} > Invoice </Typography>
 
             <Typography variant="h5" sx={{position:"relative", marginTop:"1%", marginLeft:"17%"}} > Client Details </Typography>
 
@@ -62,9 +62,9 @@ const OrderView = () => {
             <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"17%"}} > Mobile  : {Mobile} </Typography>
 
             <Box sx={{width:"350px", position:"absolute", marginTop:"-12%", marginLeft:"54%", outline:"none"}}>
-                <Typography variant="h5" sx={{position:"relative", marginTop:"1%", marginLeft:"17%"}} > Order Details </Typography>
+                <Typography variant="h5" sx={{position:"relative", marginTop:"10%", marginLeft:"0%"}} > Order Details </Typography>
 
-                <Typography variant="h6" sx={{position:"relative", marginTop:"1%", marginLeft:"0%"}} > Order No    : {OrderID} </Typography>
+                <Typography variant="h6" sx={{position:"relative", marginTop:"2%", marginLeft:"0%"}} > Order No    : {OrderID} </Typography>
                 <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"0%"}} > Order Date : {Address} </Typography>
                 {/* <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"0%"}} > </Typography>
                 <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"0%"}} > </Typography> */}
