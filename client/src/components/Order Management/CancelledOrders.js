@@ -14,14 +14,22 @@ export default class CancelledOrders extends React.Component {
         super(props);
 
         this.state = {
-            Orders: []
+            OrdersPen: [],
+            OrderRef:[]
         }
     }
 
     async componentDidMount() {
-        await axios.get('http://localhost:8070/order/cancelled')
+        await axios.get('http://localhost:8070/order/cancelled/pen')
         .then( (response) => {
-            this.setState({Orders:response.data})
+            this.setState({OrdersPen:response.data})
+            console.log(response.data)
+        })
+        .catch((err) => console.log(err.message))
+
+        await axios.get('http://localhost:8070/order/cancelled/')
+        .then( (response) => {
+            this.setState({OrderRef:response.data})
             console.log(response.data)
         })
         .catch((err) => console.log(err.message))
@@ -30,8 +38,8 @@ export default class CancelledOrders extends React.Component {
     render() {
         return (
             <div>
-                <TableContainer sx={{ width:"1000px", height:"auto", marginLeft:"25px", marginTop:"25px"}} >
-                    <Table sx={{width:"1000px"}} stickyHeader aria-label="sticky table" >
+                <TableContainer sx={{ width:"1200px", height:"auto", marginLeft:"25px", marginTop:"25px"}} >
+                    <Table sx={{width:"1200px"}} stickyHeader aria-label="sticky table" >
                         <TableHead>
                             <TableRow>
                                 <TableCell sx={{backgroundColor:'#b0bec5', textAlign: 'center'}} > Order ID </TableCell>
@@ -45,14 +53,28 @@ export default class CancelledOrders extends React.Component {
             
                         <TableBody>
                         {
-                                this.state.Orders.map((order) => (
+                                this.state.OrdersPen.map((order) => (
                                     <TableRow hover >
                                         <TableCell> {order._id} </TableCell>
                                         <TableCell> {order.Name} </TableCell>
                                         <TableCell> {order.Address} </TableCell>
                                         <TableCell> {order.Mobile} </TableCell>
                                         <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
-                                        <TableCell>  </TableCell>
+                                        <TableCell sx={{textAlign: 'center', color: '#F3842A'}}> Pending... </TableCell>
+                                        <TableCell> <Button variant='outlined' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+
+{
+                                this.state.OrderRef.map((order) => (
+                                    <TableRow hover >
+                                        <TableCell> {order._id} </TableCell>
+                                        <TableCell> {order.Name} </TableCell>
+                                        <TableCell> {order.Address} </TableCell>
+                                        <TableCell> {order.Mobile} </TableCell>
+                                        <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
+                                        <TableCell sx={{textAlign: 'center', color:"#2F61CEC3"}}> Refunded </TableCell>
                                         <TableCell> <Button variant='outlined' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
                                     </TableRow>
                                 ))
