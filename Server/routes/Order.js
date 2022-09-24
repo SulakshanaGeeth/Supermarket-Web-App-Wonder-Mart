@@ -33,7 +33,13 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/place", async (req, res) => {
-  Order.find({ Deliver: "false", Rider: "false" })
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "false" })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(err.message));
+});
+
+router.get("/cancelled", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "true" })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
@@ -51,7 +57,10 @@ router.get("/item/:id", async (req, res) => {
 });
 
 router.get("/deliverd/:id", async (req, res) => {
-  await Order.find({ UserID: req.params.id, Deliver: "true" })
+  await Order.find({ 
+    UserID: req.params.id, 
+    Deliver: "true" 
+    })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
@@ -73,13 +82,16 @@ router.get("/place/:id", async (req, res) => {
     Deliver: "false",
     Rider: "false",
     Cancelled: "false",
-  })
+    })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
 
 router.get("/cancelled/:id", async (req, res) => {
-  await Order.find({ UserID: req.params.id, Cancelled: "true" })
+  await Order.find({ 
+    UserID: req.params.id, 
+    Cancelled: "true" 
+    })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
