@@ -29,7 +29,7 @@ import Orders from "./components/Payment Management/Orders";
 import OrderView from "./components/Payment Management/OrderView";
 
 /* Orders Management */
-//import OrdersAdmin from "./components/Order Management/OrdersAd";
+import ViewOrder from "./components/Order Management/ViewOrder";
 
 function App() {
   return (
@@ -208,6 +208,15 @@ function App() {
           element={
             <PrivateRoute>
               <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/OrdersView/:id"
+          element={
+            <PrivateRoute>
+              <ViewOrder />
             </PrivateRoute>
           }
         />
