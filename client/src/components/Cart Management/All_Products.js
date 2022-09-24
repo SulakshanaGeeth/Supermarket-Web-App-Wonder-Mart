@@ -20,6 +20,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Divider from '@mui/material/Divider';
 import MenuList from '@mui/material/MenuList';
+import Slide from '@mui/material/Slide';
 
 export default class AllProducts extends React.Component {
 
@@ -134,14 +135,7 @@ export default class AllProducts extends React.Component {
                 
                 <ButtonGroup variant="contained" aria-label="split button" sx={{ position:"absolute", marginLeft:"320px", marginTop:"-10px"}}>
                     <Button sx={{ backgroundColor:"white", color:"black", width:"200px"}} onClick={() => this.catogaryOpen()} endIcon={<ArrowDropDownIcon />} >Catogory</Button>
-                    {/* <Button size="medium"
-                        
-                        onClick={() => this.catogaryOpen()}
-                        sx={{ backgroundColor:"white", color:"black"}}
-                    >
-                    <ArrowDropDownIcon />
-                    </Button> */}
-
+                    
                     <Menu
                         id="menu-appbar"
                         sx={{
@@ -214,28 +208,14 @@ export default class AllProducts extends React.Component {
                     open={this.state.snackbar}
                     onClose={() => this.snackbar()}
                     autoHideDuration={3000}
+                    anchorOrigin={{ vertical:'bottom', horizontal:'center' }}
+                    sx={{marginBottom:"20px"}}
+                    TransitionComponent={Slide}
                  >
                    <Alert severity={this.state.variant}>{this.state.message}</Alert>
                                             
                 </Snackbar>
-
-                {/* {
-                    this.state.Products.map((product) =>(
-                        <Card style={{ backgroundColor:"aqua", width:"250px", height:"300px", float:"left", marginLeft:"25px", marginTop:"15px", marginBottom:"10px" }}>
-                            <Card.Img variant="top" />
-
-                            <Card.Title>Product ID</Card.Title>
-                            <Card.Text>
-                                Product Name : {product.ProductName} <br/>
-                                Product Price : ${product.ProductPrice} <br/>
-                                Quantity : {product.Quantity}
-                            </Card.Text>
-                            <Button style={{ backgroundColor:"lightgrey", color:"black"}} onClick={() => this.InsertCart(product._id)} >Add To Cart</Button>
-                        </Card>
-                    ))
-                } */}
-
-
+                
             <Footer/>
                 
             </div>
