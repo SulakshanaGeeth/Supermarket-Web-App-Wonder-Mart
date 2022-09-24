@@ -1,5 +1,9 @@
 import React from 'react';
 
+import AllOrders from './AllOrders';
+import CancelledOrders from './CancelledOrders';
+import PlacedOrders from './PlacedOrders';
+
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Container from '@mui/material/Container';
@@ -45,16 +49,15 @@ export default class OrdersAdmin extends React.Component {
                 </Tabs>
 
                 <Container sx={{display:this.state.receiveShow, marginTop:"25px", marginBottom:"25px"}} >
-                    {/* <Receiving/>
-                    <Delivering/> */}
+                    <PlacedOrders/>
                 </Container>
                 
                 <Container sx={{display:this.state.deliveredShow, marginTop:"25px", marginBottom:"25px"}} >
-                    {/* <Delivered/> */}
+                    <CancelledOrders/>
                 </Container>
 
                 <Container sx={{display:this.state.cancelledShow, marginTop:"25px", marginBottom:"25px"}} >                    
-                    {/* <Cancelled/> */}
+                    <AllOrders/>
                 </Container>
             </div>
         )
