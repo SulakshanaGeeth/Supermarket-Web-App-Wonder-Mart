@@ -51,7 +51,7 @@ const OrderView = () => {
             <Header />
 
             <img alt="WMlogo" src={logo} style={{width:"100px", height:"100px", marginTop:"25px", marginLeft:"60%",position:"absolute"}} />
-            <Typography variant="h4" sx={{position:"absolute", marginTop:"8%", marginLeft:"56%"}} > Wonder Mart </Typography> 
+            <Typography variant="h4" sx={{position:"absolute", marginTop:"8%", marginLeft:"57%"}} > Wonder Mart </Typography> 
             <Typography variant="h1" sx={{position:"relative", marginTop:"1%", marginLeft:"17%"}} > Invoice </Typography>
 
             <Typography variant="h5" sx={{position:"relative", marginTop:"1%", marginLeft:"17%"}} > Client Details </Typography>
@@ -116,10 +116,10 @@ const OrderView = () => {
                 </Table>
                 </TableContainer>
 
-                <Typography variant="h4" sx={{marginLeft: '20%', marginTop: '2%'}} > Thank You for your business !</Typography>
-                <Typography variant="h6" sx={{marginLeft: '20%'}} > If you have any question about this invoice Please contact us.</Typography>
-                <Typography variant="body1" sx={{marginLeft: '20%'}} > Email : wondermart@gmail.com </Typography>
-                <Typography variant="body1" sx={{marginLeft: '20%'}} > Mobile : 0714578658/0778745852 </Typography>
+                <Typography variant="h4" sx={{marginLeft: '17%', marginTop: '2%'}} > Thank You for your business !</Typography>
+                <Typography variant="h6" sx={{marginLeft: '17%'}} > If you have any question about this invoice Please contact us.</Typography>
+                <Typography variant="body1" sx={{marginLeft: '17%'}} > Email : wondermart@gmail.com </Typography>
+                <Typography variant="body1" sx={{marginLeft: '17%'}} > Mobile : 0714578658/0778745852 </Typography>
 
             <Footer/>
         </div>
