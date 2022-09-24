@@ -37,6 +37,9 @@ import AllDpersons from "./DeliveryManagement/AllDperson";
 import AddDeperson from "./DeliveryManagement/AddDperson";
 import DpersonEdit from "./DeliveryManagement/Dedit";
 
+//Orders Management
+import OrdersAdmin from "./Order Management/OrdersAdmin";
+
 const drawerWidth = 240;
 
 export default function AdminDashboard() {
@@ -127,9 +130,9 @@ export default function AdminDashboard() {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => {
-                  // setpageNo("4");
-                  history("");
-                }}
+                  // setpageNo("3");
+                  history("/admin/Orders");
+                }}              
               >
                 <ListItemIcon>
                   <ReceiptLongIcon />
@@ -245,6 +248,20 @@ export default function AdminDashboard() {
           <Toolbar />
           <div>
             <DpersonEdit />
+          </div>
+        </Box>
+      )}
+
+      {/*  */}
+      {/*  */}
+      {/* Orders */}
+      {/*  */}
+      {/*  */}
+      {window.location.pathname === `/admin/Orders` && (
+        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Toolbar />
+          <div>
+            <OrdersAdmin />
           </div>
         </Box>
       )}
