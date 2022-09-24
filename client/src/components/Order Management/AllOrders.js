@@ -32,8 +32,8 @@ export default class AllOrders extends React.Component {
         return (
             <div>
                 
-                <TableContainer sx={{ width:"1000px", height:"auto", marginLeft:"25px", marginTop:"25px"}} >
-                    <Table sx={{width:"1000px"}} stickyHeader aria-label="sticky table" >
+                <TableContainer sx={{ width:"1200px", height:"auto", marginLeft:"25px", marginTop:"25px"}} >
+                    <Table sx={{width:"1200px"}} stickyHeader aria-label="sticky table" >
                         <TableHead>
                             <TableRow>
                                 <TableCell sx={{backgroundColor:'#b0bec5', textAlign: 'center'}} > Order ID </TableCell>

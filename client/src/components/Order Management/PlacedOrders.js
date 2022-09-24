@@ -27,6 +27,10 @@ export default class PlacedOrders extends React.Component {
         .catch((err) => console.log(err.message))
     }
 
+    viewOrder(id){
+        window.location = '/admin/OrdersView/' + id;
+    }
+
     render() {
         return (
             <div>
@@ -51,7 +55,9 @@ export default class PlacedOrders extends React.Component {
                                         <TableCell> {order.Address} </TableCell>
                                         <TableCell> {order.Mobile} </TableCell>
                                         <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
-                                        <TableCell> <Button variant='outlined' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
+                                        <TableCell> <Button variant='outlined' color='primary'
+                                                            sx={{backgroundColor:'#03a9f4', color:'black'}}
+                                                            onClick={() => this.viewOrder(order._id)}> View Details </Button> </TableCell>
                                         <TableCell> <Button variant='outlined' color='success'sx={{backgroundColor:'#3DEF46', color:'black'}} > Rider Assign </Button> </TableCell>
                                     </TableRow>
                                 ))
