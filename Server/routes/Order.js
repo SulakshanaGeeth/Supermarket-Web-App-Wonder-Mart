@@ -135,6 +135,15 @@ router.put("/cancelled/:id", async (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
+router.put("/refund/:id", async (req, res) => {
+  const obj = await Order.findById(req.params.id);
+  obj.Refund = true;
+  obj
+    .save()
+    .then(() => res.json("Order Cancelled Successfully"))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
+
 router.delete("/:id", (req, res) => {
   Order.findByIdAndDelete(req.params.id)
     .then(() => res.json("Order Cancelled Successfully"))
