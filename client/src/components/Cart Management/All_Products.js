@@ -197,7 +197,7 @@ export default class AllProducts extends React.Component {
                                 </Typography>
                             </CardContent>
                             <CardActions>
-                                <Button onClick={() => this.InsertCart(product._id)} size="small" sx={{color:"black", marginLeft:"60px", backgroundColor:"#ffb300"}}>Add to Cart</Button>
+                                <Button variant="contained" color="inherit" onClick={() => this.InsertCart(product._id)} size="small" sx={{color:"black", marginLeft:"60px", backgroundColor:"#ffb300"}}>Add to Cart</Button>
                             </CardActions>
                         </Card>
 
