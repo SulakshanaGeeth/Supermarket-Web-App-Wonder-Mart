@@ -33,7 +33,25 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/place", async (req, res) => {
-  Order.find({ Deliver: "false", Rider: "false" })
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "false" })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(err.message));
+});
+
+router.get("/sending", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "true",Cancelled: "false" })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(err.message));
+});
+
+router.get("/cancelled/pen", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "true", Refund:'false' })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(err.message));
+});
+
+router.get("/cancelled/", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "false",Cancelled: "true", Refund:'true' })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
@@ -51,7 +69,10 @@ router.get("/item/:id", async (req, res) => {
 });
 
 router.get("/deliverd/:id", async (req, res) => {
-  await Order.find({ UserID: req.params.id, Deliver: "true" })
+  await Order.find({ 
+    UserID: req.params.id, 
+    Deliver: "true" 
+    })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
@@ -73,38 +94,50 @@ router.get("/place/:id", async (req, res) => {
     Deliver: "false",
     Rider: "false",
     Cancelled: "false",
-  })
+    })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
 
 router.get("/cancelled/:id", async (req, res) => {
-  await Order.find({ UserID: req.params.id, Cancelled: "true" })
+  await Order.find({ 
+    UserID: req.params.id, 
+    Cancelled: "true" 
+    })
     .then((result) => res.json(result))
     .catch((err) => res.status(err.message));
 });
 
 router.put("/Rider/:id", async (req, res) => {
   const obj = await Order.findById(req.params.id);
-  obj.Rider = req.body.Rider;
+  obj.Rider = true;
   obj
     .save()
-    .then(() => res.json("Order Updated Successfully"))
-    .catch((err) => res.status(400).json(`Error: ${err}`));
+    .then(() => res.json("Rider Assigned Successfully"))
+    .catch((err) => res.json(`Error: ${err}`));
 });
 
 router.put("/Deliver/:id", async (req, res) => {
   const obj = await Order.findById(req.params.id);
-  obj.Deliver = req.body.Deliver;
+  obj.Deliver = true;
   obj
     .save()
-    .then(() => res.json("Order Updated Successfully"))
+    .then(() => res.json("Order Delivered Successfully"))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
 router.put("/cancelled/:id", async (req, res) => {
   const obj = await Order.findById(req.params.id);
   obj.Cancelled = true;
+  obj
+    .save()
+    .then(() => res.json("Order Cancelled Successfully"))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+});
+
+router.put("/refund/:id", async (req, res) => {
+  const obj = await Order.findById(req.params.id);
+  obj.Refund = true;
   obj
     .save()
     .then(() => res.json("Order Cancelled Successfully"))

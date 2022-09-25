@@ -69,7 +69,7 @@ export default class Cancelled extends React.Component {
                                             <Typography variant="subtitle1" > Amount </Typography> 
                                         </Grid>
                                         <Grid item xs={7}>
-                                        <Typography variant="subtitle1" > {item.Amount} </Typography> 
+                                        <Typography variant="subtitle1" > Rs {item.Amount}.00 </Typography> 
                                         </Grid> 
 
                                         <Grid item xs={4}>

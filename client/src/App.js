@@ -28,6 +28,9 @@ import OrderCreate from "./components/Payment Management/OrderPlacing";
 import Orders from "./components/Payment Management/Orders";
 import OrderView from "./components/Payment Management/OrderView";
 
+/* Orders Management */
+import ViewOrder from "./components/Order Management/ViewOrder";
+
 function App() {
   return (
     <div className="App">
@@ -190,6 +193,30 @@ function App() {
           element={
             <PrivateRoute>
               <OrderView />
+            </PrivateRoute>
+          }
+        />
+
+        {/*  */}
+        {/*  */}
+        {/* Orders Management */}
+        {/*  */}
+        {/*  */}
+
+        <Route
+          path="/admin/Orders"
+          element={
+            <PrivateRoute>
+              <AdminDashboard />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin/OrdersView/:id"
+          element={
+            <PrivateRoute>
+              <ViewOrder />
             </PrivateRoute>
           }
         />
