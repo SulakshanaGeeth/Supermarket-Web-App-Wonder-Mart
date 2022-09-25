@@ -24,28 +24,29 @@ const ViewOrder = () => {
     const [Address, setAddress] = useState('');
     const [Mobile, setMobile] = useState('');
     const [Email, setEmail] = useState('');
-    // const [Card, setCard] = useState({});
     const [Products, setProducts] = useState([]);
     const [Amount, setAmount] = useState('');
     const [User, setUser] = useState('');
 
     useEffect(() => {
-        axios.get("http://localhost:8070/order/item/" + OrderID)
+        getData();
+    }, []);
+
+    const getData = async () => {
+       await axios.get("http://localhost:8070/order/item/" + OrderID)
         .then((res) => {
             setUser(res.data.UserID)
             setName(res.data.Name);
             setAddress(res.data.Address);
             setMobile(res.data.Mobile);
             setEmail(res.data.Email);
-            // setCard(res.data.Card);
             setProducts(res.data.Products);
-            setAmount(res.data.Amount);
+            setAmount(res.data.Amount);        
         })
         .catch((error) => console.log(error))
-
+        
         // console.log(Products)
-
-    }, []);
+    };    
 
     return (
         <div>
@@ -53,7 +54,7 @@ const ViewOrder = () => {
                 <AdminDashboard/>
             </div>
 
-            <div style={{marginLeft:'250px', marginTop:'70px'}} >
+            <div style={{marginLeft:'250px', marginTop:'70px', paddingBottom:"25px"}} >
                 <IconButton aria-label="delete" href="/admin/Orders">
                     <ReplyIcon style={{ fontSize: "200%" }} />
                 </IconButton>
@@ -78,7 +79,7 @@ const ViewOrder = () => {
                     <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"0%"}} > </Typography> */}
                 </Box>            
 
-                <TableContainer sx={{ width:'1000px', marginTop:'10px' }} component={Paper}>
+                <TableContainer sx={{ width:'1000px', marginTop:'10px'}} component={Paper}>
                     <Table sx={{ width:'1000px'}} aria-label="customized table">
                         <TableHead>
                             <TableRow>
@@ -126,5 +127,5 @@ const ViewOrder = () => {
             </div>                                
         </div>
     )
-}
+};
 export default ViewOrder;

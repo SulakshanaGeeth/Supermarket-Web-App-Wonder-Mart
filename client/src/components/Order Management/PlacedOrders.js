@@ -66,6 +66,7 @@ export default class PlacedOrders extends React.Component {
 
     async Delivered(id) {
         this.DeliveredModalClose();
+        
         await axios.put('http://localhost:8070/order/Deliver/' + id)
         .then( (response) => {
             if(response.status === 200)
