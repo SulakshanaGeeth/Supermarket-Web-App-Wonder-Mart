@@ -38,6 +38,12 @@ router.get("/place", async (req, res) => {
     .catch((err) => res.status(err.message));
 });
 
+router.get("/sending", async (req, res) => {
+  Order.find({ Deliver: "false", Rider: "true",Cancelled: "false" })
+    .then((result) => res.json(result))
+    .catch((err) => res.status(err.message));
+});
+
 router.get("/cancelled/pen", async (req, res) => {
   Order.find({ Deliver: "false", Rider: "false",Cancelled: "true", Refund:'false' })
     .then((result) => res.json(result))
@@ -113,10 +119,10 @@ router.put("/Rider/:id", async (req, res) => {
 
 router.put("/Deliver/:id", async (req, res) => {
   const obj = await Order.findById(req.params.id);
-  obj.Deliver = req.body.Deliver;
+  obj.Deliver = true;
   obj
     .save()
-    .then(() => res.json("Order Updated Successfully"))
+    .then(() => res.json("Order Delivered Successfully"))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
