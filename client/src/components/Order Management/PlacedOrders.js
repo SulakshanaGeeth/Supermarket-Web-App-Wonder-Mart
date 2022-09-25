@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 
+import {RiderAssign} from './Alert/Alert';
+
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -8,13 +10,19 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button  from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
 
 export default class PlacedOrders extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            Orders: []
+            Orders: [],
+            rider:false,
+            id:null,
         }
     }
 
@@ -30,6 +38,25 @@ export default class PlacedOrders extends React.Component {
     viewOrder(id){
         window.location = '/admin/OrdersView/' + id;
     }
+
+    async assignRider(id) {
+        this.RiderAssignModalClose();
+        await axios.put('http://localhost:8070/order/Rider/' + id)
+        .then( (response) => {
+            if(response.status === 200)
+                RiderAssign("success", "Assign Rider ", response.data);
+            else
+                RiderAssign("error", "Error", response.data);
+        })
+        .catch((err) => console.log(err.message))
+
+        //console.log(this.state.id)
+
+        this.componentDidMount();
+    }
+
+    RiderAssignModal(ID) { this.setState({rider:true, id:ID }); }
+    RiderAssignModalClose() { this.setState({rider:false})}
 
     render() {
         return (
@@ -55,10 +82,28 @@ export default class PlacedOrders extends React.Component {
                                         <TableCell> {order.Address} </TableCell>
                                         <TableCell> {order.Mobile} </TableCell>
                                         <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
-                                        <TableCell> <Button variant='outlined' color='primary'
-                                                            sx={{backgroundColor:'#03a9f4', color:'black'}}
-                                                            onClick={() => this.viewOrder(order._id)}> View Details </Button> </TableCell>
-                                        <TableCell> <Button variant='outlined' color='success'sx={{backgroundColor:'#3DEF46', color:'black'}} > Rider Assign </Button> </TableCell>
+                                        <TableCell> 
+                                            <Button 
+                                                variant='outlined' 
+                                                color='primary'
+                                                onClick={() => this.viewOrder(order._id)}
+                                                sx={{
+                                                    backgroundColor:'#03a9f4', 
+                                                    color:'black'
+                                                }}> View Details 
+                                            </Button> 
+                                        </TableCell>
+                                        <TableCell> 
+                                            <Button 
+                                                variant='outlined' 
+                                                color='success'
+                                                onClick={() => this.RiderAssignModal(order._id)}
+                                                sx={{
+                                                    backgroundColor:'#3DEF46', 
+                                                    color:'black'
+                                                }} > Rider Assign 
+                                            </Button> 
+                                        </TableCell>
                                     </TableRow>
                                 ))
                             }
@@ -81,6 +126,25 @@ export default class PlacedOrders extends React.Component {
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+                <Dialog
+                    open={this.state.rider}
+                    onClose={this.RiderAssignModalClose}
+                    maxWidth="sm">
+
+                    <ReportRoundedIcon  sx={{color:"#d32f2f", fontSize:"80px", marginLeft:"80px"}}/> <br/>
+                        <DialogTitle id="alert-dialog-title" sx={{fontWeight:"bold"}}>
+                        Delete Cart Detals ?
+                    </DialogTitle>
+
+                    <DialogActions sx={{display:"left"}}>
+                        <Button onClick={() => this.RiderAssignModalClose()} sx={{backgroundColor:"#b2ff59", color:"black", marginRight:"150px", position:"absolute"}} >Cancel</Button>
+                        <Button onClick={() => this.assignRider(this.state.id)} sx={{backgroundColor:"#ffc947", color:"black"}} autoFocus>
+                            Confirm
+                        </Button>
+                    </DialogActions>
+
+                </Dialog>
             </div>
         )
     }
