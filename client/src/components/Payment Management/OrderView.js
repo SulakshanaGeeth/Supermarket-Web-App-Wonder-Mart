@@ -73,7 +73,7 @@ const OrderView = () => {
                 <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"17%"}} > Mobile  : {Mobile} </Typography>
 
                 <Box sx={{width:"350px", position:"absolute", marginTop:"-12%", marginLeft:"54%", outline:"none"}}>
-                    <Typography variant="h5" sx={{position:"relative", marginTop:"10%", marginLeft:"0%"}} > Order Details </Typography>
+                    <Typography variant="h5" sx={{position:"relative", marginTop:"12%", marginLeft:"0%"}} > Order Details </Typography>
 
                     <Typography variant="h6" sx={{position:"relative", marginTop:"2%", marginLeft:"0%"}} > Order No    : {OrderID} </Typography>
                     <Typography variant="h6" sx={{position:"relative", marginTop:"0%", marginLeft:"0%"}} > Order Date : {Address} </Typography>
