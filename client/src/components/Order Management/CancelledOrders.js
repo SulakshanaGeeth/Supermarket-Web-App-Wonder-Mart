@@ -35,6 +35,10 @@ export default class CancelledOrders extends React.Component {
         .catch((err) => console.log(err.message))
     }
 
+    viewOrder(id){
+        window.location = '/admin/OrdersView/' + id;
+    }
+
     render() {
         return (
             <div>
@@ -61,7 +65,7 @@ export default class CancelledOrders extends React.Component {
                                         <TableCell> {order.Mobile} </TableCell>
                                         <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
                                         <TableCell sx={{textAlign: 'center', color: '#F3842A'}}> Pending... </TableCell>
-                                        <TableCell> <Button variant='outlined' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
+                                        <TableCell> <Button onClick={() => this.viewOrder(order._id)} variant='outlined' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
                                     </TableRow>
                                 ))
                             }
