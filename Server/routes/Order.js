@@ -104,11 +104,11 @@ router.get("/cancelled/:id", async (req, res) => {
 
 router.put("/Rider/:id", async (req, res) => {
   const obj = await Order.findById(req.params.id);
-  obj.Rider = req.body.Rider;
+  obj.Rider = true;
   obj
     .save()
-    .then(() => res.json("Order Updated Successfully"))
-    .catch((err) => res.status(400).json(`Error: ${err}`));
+    .then(() => res.json("Rider Assigned Successfully"))
+    .catch((err) => res.json(`Error: ${err}`));
 });
 
 router.put("/Deliver/:id", async (req, res) => {
