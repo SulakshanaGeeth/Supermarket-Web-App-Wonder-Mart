@@ -11,6 +11,10 @@ import ImageListItem from '@mui/material/ImageListItem';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import Form from 'react-bootstrap/Form';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 export default class OrderCreate extends React.Component {
     constructor(props) {
         super(props);
@@ -95,7 +99,170 @@ export default class OrderCreate extends React.Component {
                             src="https://camo.githubusercontent.com/b45d680d48b4b642b19ac7308567ea61f995a566d8b2a9165def53740574f3b5/687474703a2f2f73746f726167652e6a302e686e2f6372656469742d636172642d6c6f676f732d322e706e67" />
                     </ImageListItem>
 
-                    <TextField id="cardno" variant="outlined" label="Card Number" required
+                    <FloatingLabel label="Card No" 
+                        style={{
+                                width:"600px",
+                                marginLeft:"100px",
+                                marginBottom:"15px",
+                        }} >
+                        <Form.Control
+                            type="text"
+                            id="cardno"
+                            placeholder="Card Number"
+                            onChange={(e) => this.onChange(e)}
+                            style={{
+                                width:"600px",
+                                marginBottom:"15px",
+                                borderRadius:"22px",
+                                backgroundColor: "#cfd8dc"
+                            }}
+                        />
+                    </FloatingLabel>   
+
+                    <FloatingLabel label="Expire" 
+                        style={{
+                            width:"600px",
+                            marginLeft:"100px",
+                            marginBottom:"15px",
+                        }}>
+                        <Form.Control
+                        type="text"
+                        id="exp"
+                        placeholder="Expire '12/25'"
+                        onChange={(e) => this.onChange(e)}
+                        style={{
+                            width:"150px",
+                            marginBottom:"15px",
+                            borderRadius:"22px",
+                            backgroundColor: "#cfd8dc"
+                            }}
+                        />
+                    </FloatingLabel>  
+
+                    <FloatingLabel label="CVV" 
+                        style={{
+                            width:"600px",
+                            marginLeft:"600px",
+                            position:"absolute",
+                            marginTop:"-75px"
+                        }}>
+                        <Form.Control
+                            type="number"
+                            id="cvv"
+                            placeholder="Expire '12/25'"
+                            minLength={3}
+                            onChange={(e) => this.onChange(e)}
+                            style={{
+                                width:"100px", 
+                                marginBottom:"15px",
+                                borderRadius:"22px",
+                                backgroundColor: "#cfd8dc"
+                            }}
+                            
+                        />
+                    </FloatingLabel>
+
+                    <InputGroup>
+
+                        <FloatingLabel label="First Name" 
+                            style={{
+                                    width:"200px",
+                                    marginLeft:"100px",
+                                    marginBottom:"15px",
+                            }} >
+                            <Form.Control
+                                type="text"
+                                id="fname"
+                                placeholder="First Name"
+                                onChange={(e) => this.onChange(e)}
+                                style={{
+                                    width:"200px",
+                                    marginBottom:"15px",
+                                    borderRadius:"22px",
+                                    backgroundColor: "#cfd8dc"
+                                }}
+                            />
+                        </FloatingLabel> 
+
+                        <FloatingLabel label="Last Name" 
+                            style={{
+                                    width:"200px",
+                                    marginLeft:"100px",
+                                    marginBottom:"15px",
+                            }} >
+                            <Form.Control
+                                type="text"
+                                id="lname"
+                                placeholder="Last Name"
+                                onChange={(e) => this.onChange(e)}
+                                style={{
+                                    width:"200px",
+                                    marginBottom:"15px",
+                                    borderRadius:"22px",
+                                    backgroundColor: "#cfd8dc"
+                                }}
+                            />
+                        </FloatingLabel>   
+                    </InputGroup>       
+
+                    <FloatingLabel label="Email" 
+                        style={{
+                                width:"600px",
+                                marginLeft:"100px",
+                                marginTop:"-15px",
+                        }} >
+                        <Form.Control
+                            type="email"
+                            id="email"
+                            placeholder="Email"
+                            onChange={(e) => this.onChange(e)}
+                            style={{
+                                width:"600px",
+                                borderRadius:"22px",
+                                backgroundColor: "#cfd8dc"
+                            }}
+                        />
+                    </FloatingLabel>
+
+                    <FloatingLabel label="Address" 
+                        style={{
+                                width:"600px",
+                                marginLeft:"100px",
+                                marginTop:"15px",
+                        }} >
+                        <Form.Control
+                            type="text"
+                            id="address"
+                            placeholder="Address"
+                            onChange={(e) => this.onChange(e)}
+                            style={{
+                                width:"600px",
+                                borderRadius:"22px",
+                                backgroundColor: "#cfd8dc"
+                            }}
+                        />
+                    </FloatingLabel>
+
+                    <FloatingLabel label="Mobile" 
+                        style={{
+                                width:"600px",
+                                marginLeft:"100px",
+                                marginTop:"15px",
+                        }} >
+                        <Form.Control
+                            type="text"
+                            id="mobile"
+                            placeholder="Mobile"
+                            onChange={(e) => this.onChange(e)}
+                            style={{
+                                width:"600px",
+                                borderRadius:"22px",
+                                backgroundColor: "#cfd8dc"
+                            }}
+                        />
+                    </FloatingLabel>
+
+                    {/* <TextField id="cardno" variant="outlined" label="Card Number" required
                         onChange={(e) => this.onChange(e)}
                         sx={{
                             backgroundColor:"lightgrey", 
@@ -163,9 +330,9 @@ export default class OrderCreate extends React.Component {
                             color:"black",
                             marginLeft:"100px", 
                             width:"600px",
-                            marginBottom:"15px" }} /> <br/>
+                            marginBottom:"15px" }} /> <br/> */}
 
-                    <Button onClick={() => this.onSubmit()} sx={{backgroundColor:"#76ff03", color:"black", marginLeft:"100px", width:"600px", marginBottom:"15px"}} variant="contained" color="inherit"> COnfirm Order </Button>        
+                    <Button onClick={() => this.onSubmit()} sx={{backgroundColor:"#76ff03", color:"black", marginLeft:"100px", width:"600px", marginBottom:"15px", marginTop:"15px"}} variant="contained" color="inherit"> COnfirm Order </Button>        
                 </Paper>
 
                 <Footer/>
