@@ -36,7 +36,8 @@ export default class AllProducts extends React.Component {
             snackbar : false,
             message:"",
             variant:"error",
-            status:""
+            status:"",
+            search:""
         }
     }
 
@@ -127,6 +128,32 @@ export default class AllProducts extends React.Component {
         }        
     }
 
+    onChanging(e){
+        this.setState({[e.target.id]: e.target.value});
+        //console.log(e.target.value);
+    }
+
+    SearchProducts(name) {
+        //console.log(name);
+        // this.componentDidMount();
+        axios.get('http://localhost:8070/products/')
+        .then((res) => {            
+            //console.log(res.data);
+            this.filterData(res.data.products, name);
+        })
+        .catch((err) => console.log(err))       
+        
+
+       
+    }
+
+    filterData(data, name) {
+        const result = data.filter((product) => product.productName.toLowerCase().includes(name.toLowerCase()));
+        //console.log(result);
+
+        this.setState({Products:result})
+    }
+
     render() {
         return (
             <div>
@@ -165,11 +192,17 @@ export default class AllProducts extends React.Component {
                     </Menu>
 
                     <TextField                        
-                        id="filled-required"
+                        id="search"
+                        onChange={(e) => this.onChanging(e)}
                         sx={{backgroundColor:"white", color:"black", outlined:"none", width:"450px"}}
                         />
                     
-                    <Button variant="contained" color="inherit" sx={{backgroundColor:"#80e27e", color:"black",width:"150px"}} startIcon={<SearchRoundedIcon fontSize="medium" hover="true" />}>
+                    <Button 
+                        variant="contained" 
+                        color="inherit" 
+                        onClick={() => this.SearchProducts(this.state.search)}
+                        sx={{backgroundColor:"#80e27e", color:"black",width:"150px"}} 
+                        startIcon={<SearchRoundedIcon fontSize="medium" hover="true" />}>
                         Search
                     </Button>
                 </ButtonGroup>

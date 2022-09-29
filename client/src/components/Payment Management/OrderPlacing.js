@@ -176,7 +176,7 @@ export default class OrderCreate extends React.Component {
                                 placeholder="First Name"
                                 onChange={(e) => this.onChange(e)}
                                 style={{
-                                    width:"200px",
+                                    width:"220px",
                                     marginBottom:"15px",
                                     borderRadius:"22px",
                                     backgroundColor: "#cfd8dc"
@@ -187,7 +187,7 @@ export default class OrderCreate extends React.Component {
                         <FloatingLabel label="Last Name" 
                             style={{
                                     width:"200px",
-                                    marginLeft:"100px",
+                                    marginLeft:"60px",
                                     marginBottom:"15px",
                             }} >
                             <Form.Control
@@ -196,7 +196,7 @@ export default class OrderCreate extends React.Component {
                                 placeholder="Last Name"
                                 onChange={(e) => this.onChange(e)}
                                 style={{
-                                    width:"200px",
+                                    width:"220px",
                                     marginBottom:"15px",
                                     borderRadius:"22px",
                                     backgroundColor: "#cfd8dc"
