@@ -92,7 +92,7 @@ export default class CancelledOrders extends React.Component {
                                         <TableCell> {order.Mobile} </TableCell>
                                         <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
                                         <TableCell sx={{textAlign: 'center', color: '#F3842A'}}> Pending... </TableCell>
-                                        <TableCell> <Button onClick={() => this.viewOrder(order._id)} variant='contained' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
+                                        <TableCell> <Button onClick={() => this.viewOrder(order._id)} variant='contained' color='inherit'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
                                         <TableCell> <Button onClick={() => this.RefunddModal(order._id)} variant='contained' color='inherit'sx={{backgroundColor:'#eeff41', color:'black'}} > Paid </Button> </TableCell>
                                     </TableRow>
                                 ))
@@ -107,7 +107,7 @@ export default class CancelledOrders extends React.Component {
                                         <TableCell> {order.Mobile} </TableCell>
                                         <TableCell sx={{textAlign: 'right',paddingRight:"50px"}} > {order.Amount}.00 </TableCell>
                                         <TableCell sx={{textAlign: 'center', color:"#2F61CEC3"}}> Refunded </TableCell>
-                                        <TableCell> <Button variant='outlined' color='primary'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
+                                        <TableCell> <Button variant='contained' color='inherit'sx={{backgroundColor:'#03a9f4', color:'black'}} > View Details </Button> </TableCell>
                                     </TableRow>
                                 ))
                             }

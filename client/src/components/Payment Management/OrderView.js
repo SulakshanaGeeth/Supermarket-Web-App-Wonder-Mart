@@ -133,7 +133,7 @@ const OrderView = () => {
                     <Typography variant="body1" sx={{marginLeft: '17%'}} > Mobile : 0714578658/0778745852 </Typography>
                 </div>
                 <Button variant="contained" 
-                        color="warning" 
+                        color="inherit" 
                         onClick={() => DownloadInvoice()}
                         sx={{
                             marginLeft: '70%', 
