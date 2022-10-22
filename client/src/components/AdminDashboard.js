@@ -113,6 +113,22 @@ export default function AdminDashboard() {
           <List>
             <ListItem disablePadding>
               <ListItemButton
+                  onClick={() => {
+                    // setpageNo("3");
+                    history("/admin/addProduct/");
+                  }}
+              >
+                <ListItemIcon>
+                  <AirportShuttleIcon />
+                </ListItemIcon>
+                <ListItemText primary="Add Products" />
+              </ListItemButton>
+            </ListItem>
+          </List>
+          <Divider style={{ backgroundColor: "black" }} />
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
                 onClick={() => {
                   // setpageNo("3");
                   history("/admin/allPersons");

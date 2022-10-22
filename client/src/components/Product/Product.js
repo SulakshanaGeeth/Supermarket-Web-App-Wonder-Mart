@@ -20,8 +20,8 @@ const Product = (props) => {
     await axios
       .delete(`http://localhost:8070/products/${_id}`)
       .then((res) => res.data)
-      .then(() => history("/"))
-      .then(() => history("/products"));
+      .then(() => history("/admin/adminHome"))
+      .then(() => history("/admin/adminHome"));
   };
 
   return (
