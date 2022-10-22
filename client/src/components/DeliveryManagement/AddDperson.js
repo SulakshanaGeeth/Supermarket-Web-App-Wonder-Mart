@@ -36,7 +36,7 @@ function AddDPerson() {
       <form onSubmit={sendData}>
         <div className="mb-3">
           <label for="name" className="form-label">
-            enter student name
+            Enter Rider Name
           </label>
           <input
             type="text"
@@ -50,7 +50,7 @@ function AddDPerson() {
         </div>
         <div className="mb-3">
           <label for="IdNumber" className="form-label">
-            enter student IdNumber
+          Enter Rider NIC
           </label>
           <input
             type="text"
@@ -64,7 +64,7 @@ function AddDPerson() {
         </div>
         <div className="mb-3">
           <label for="PhoneNumber" className="form-label">
-            enter student PhoneNumber
+          Enter Rider PhoneNumber
           </label>
           <input
             type="text"
@@ -78,7 +78,7 @@ function AddDPerson() {
         </div>
         <div className="mb-3">
           <label for="Address" className="form-label">
-            enter student PhoneNumber
+          Enter Rider Address
           </label>
           <input
             type="text"

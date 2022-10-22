@@ -150,4 +150,16 @@ router.delete("/:id", (req, res) => {
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
+router.put("/assignRider/:id/", async (req, res) => {
+  console.log(req.params.id);
+  const obj = await Order.findById(req.params.id);
+  console.log(req.body.RiderID);
+  obj.RiderID = req.body.RiderID;
+  obj.Rider = true;
+  obj
+    .save()
+    .then(() => res.json("Rider Assigned Successfully"))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
+})
+
 module.exports = router;

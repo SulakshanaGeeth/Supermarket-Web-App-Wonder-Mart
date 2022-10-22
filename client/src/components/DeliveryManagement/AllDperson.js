@@ -36,10 +36,18 @@ function AllDpersons() {
     window.location = `/admin/edit/${id}`;
   };
 
+  const navReport = () => {
+    window.location = `/admin/reporRiders`;
+  }
+
   return (
     <div>
-      <Button variant="primary" onClick={() => navAdd()}>
+      <Button variant="primary" sx={{marginLeft:10}} onClick={() => navAdd()}>
         Add Delivery person
+      </Button> <t/>
+
+      <Button variant="success" sx={{left:10}} onClick={() => navReport()}>
+        Generate Report
       </Button>
 
       <Table striped>

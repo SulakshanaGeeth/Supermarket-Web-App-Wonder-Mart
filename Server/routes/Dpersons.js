@@ -52,7 +52,7 @@ router.route("/update/:id").put(async (req,res)=>{
         PhoneNumber,
         Address
     }
-
+    console.log(updateDperson);
     const update= await Dperson.findByIdAndUpdate(userId,updateDperson).
     then(()=>{
         res.status(200).send({status:"user updated"})
@@ -78,10 +78,10 @@ router.route("/delete/:id").delete(async (req,res)=>{
     })
 })
 
-router.route("get/:id").get(async (req,res)=>{
+router.route("/get/:id").get(async (req,res)=>{
     let userId =req.params.id;
-    await Dperson.findById(userId).then(()=>{
-        res.status(200).send({status:"user fetched",user:userId})
+    await Dperson.findById(userId).then((Dpersons)=>{
+        res.json(Dpersons)
     }).catch((err)=>{
         console.log(err.message);
         res.status(500).send({status:"error with user",error:err.message})

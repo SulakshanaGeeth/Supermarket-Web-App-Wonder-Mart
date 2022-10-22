@@ -18,6 +18,7 @@ import Home from "./components/Home";
 import About from "./components/About";
 
 //Product delivery Imports
+import ReportRiders from "./components/DeliveryManagement/ReportGeneration"
 
 //Cart Management
 import AllProducts from "./components/Cart Management/All_Products";
@@ -263,6 +264,16 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        <Route
+          path="/admin/reporRiders"
+          element={
+            <PrivateRoute>
+              <ReportRiders />
+            </PrivateRoute>
+          }
+        />
+        
       </Routes>
     </div>
   );
