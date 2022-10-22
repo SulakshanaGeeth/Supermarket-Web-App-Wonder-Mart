@@ -22,6 +22,7 @@ import About from "./components/About";
 //Cart Management
 import AllProducts from "./components/Cart Management/All_Products";
 import UserCart from "./components/Cart Management/UserCart";
+import ProductsReport from "./components/Product/Report generation";
 
 //Payment Management
 import OrderCreate from "./components/Payment Management/OrderPlacing";
@@ -142,6 +143,16 @@ function App() {
             </PrivateRoute>
           }
         />
+
+      <Route
+          path="/admin/reprtProduct/"
+          element={
+              <PrivateRoute>
+                  <ProductsReport />
+              </PrivateRoute>
+          }
+          exact
+      />
         {/*  */}
         {/*  */}
         {/* Cart Management */}

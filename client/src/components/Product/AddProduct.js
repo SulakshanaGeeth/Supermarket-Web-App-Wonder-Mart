@@ -49,7 +49,7 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs, checked);
-    sendRequest().then(() => history("/products"));
+    sendRequest().then(() => history("/admin/products"));
   };
   return (
     <Fragment>

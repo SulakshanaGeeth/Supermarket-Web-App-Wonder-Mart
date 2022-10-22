@@ -54,9 +54,10 @@ export default function AdminDashboard() {
         sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
+          <Typography variant="h6" noWrap component="div" href="/admin/adminHome" >
             Wonder Mart
           </Typography>
+
           <div style={{ marginLeft: "auto", marginRight: "0" }}>
             <h5>Admin {username}</h5>
           </div>
@@ -110,6 +111,7 @@ export default function AdminDashboard() {
             </ListItem>
           </List>
           <Divider style={{ backgroundColor: "black" }} />
+
           <List>
             <ListItem disablePadding>
               <ListItemButton
