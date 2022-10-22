@@ -14,6 +14,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import ReportRoundedIcon from '@mui/icons-material/ReportRounded';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 export default class PlacedOrders extends React.Component {
     constructor(props) {
@@ -24,7 +26,12 @@ export default class PlacedOrders extends React.Component {
             Sending:[],
             rider:false,
             id:null,
-            deliver:false
+            deliver:false,
+            open:false,
+            OrderID:"",
+            RidersDet: [],
+            riderName:"",
+            RID:"",
         }
     }
 
@@ -32,13 +39,20 @@ export default class PlacedOrders extends React.Component {
         await axios.get('http://localhost:8070/order/place')
         .then( (response) => {
             this.setState({Orders:response.data})
-            console.log(response.data)
+            //console.log(response.data)
         })
         .catch((err) => console.log(err.message))
 
         await axios.get('http://localhost:8070/order/sending')
         .then( (response) => {
             this.setState({Sending:response.data})
+            //console.log(response.data)
+        })
+        .catch((err) => console.log(err.message))
+
+        await axios.get('http://localhost:8070/Dperson/')
+        .then( (response) => {
+            this.setState({RidersDet:response.data})
             console.log(response.data)
         })
         .catch((err) => console.log(err.message))
@@ -48,9 +62,14 @@ export default class PlacedOrders extends React.Component {
         window.location = '/admin/OrdersView/' + id;
     }
 
-    async assignRider(id) {
+    async assignRider() {
         this.RiderAssignModalClose();
-        await axios.put('http://localhost:8070/order/Rider/' + id)
+
+        const Rider = {
+            RiderID: this.state.id
+        }
+        
+        await axios.put('http://localhost:8070/order/assignRider/' + this.state.OrderID, Rider)
         .then( (response) => {
             if(response.status === 200)
                 RiderAssign("success", "Assign Rider ", response.data);
@@ -81,11 +100,24 @@ export default class PlacedOrders extends React.Component {
         this.componentDidMount();
     }
 
-    RiderAssignModal(ID) { this.setState({rider:true, id:ID }); }
+    RiderAssignModal(ID, name) { 
+        this.handleClose();
+
+        this.setState({rider:true, id:ID, riderName:name }); 
+    }
     RiderAssignModalClose() { this.setState({rider:false})}
 
     DeliveredModal(ID) { this.setState({deliver:true, id:ID }); }
     DeliveredModalClose() { this.setState({deliver:false})}
+
+    handleClickOpen = (id) => {
+        this.setState({open:true, OrderID:id})
+      };
+    
+    handleClose = () => {
+        this.setState({open:false})
+      };
+    
 
     render() {
         return (
@@ -126,7 +158,8 @@ export default class PlacedOrders extends React.Component {
                                             <Button 
                                                 variant='outlined' 
                                                 color='success'
-                                                onClick={() => this.RiderAssignModal(order._id)}
+                                                //onClick={() => this.RiderAssignModal(order._id)}
+                                                onClick={() => this.handleClickOpen(order._id)}
                                                 sx={{
                                                     backgroundColor:'#3DEF46', 
                                                     color:'black'
@@ -198,12 +231,12 @@ export default class PlacedOrders extends React.Component {
 
                     <ReportRoundedIcon  sx={{color:"#d32f2f", fontSize:"80px", marginLeft:"180px"}}/> <br/>
                         <DialogTitle id="alert-dialog-title" sx={{fontWeight:"bold", marginLeft:"100px", fontSize:'25px', marginTop:"-20px"}}>
-                        Assign a Rider ?
+                        Assign Rider {this.state.riderName} ?
                     </DialogTitle>
 
                     <DialogActions sx={{display:"left"}}>
                         <Button variant="contained" color="inherit" onClick={() => this.RiderAssignModalClose()} sx={{backgroundColor:"#b2ff59", color:"black", marginRight:"275px", position:"absolute", width:"150px"}} >Cancel</Button>
-                        <Button variant="contained" color="inherit" onClick={() => this.assignRider(this.state.id)} sx={{backgroundColor:"#ffc947", color:"black",marginRight:"0px", width:"150px"}} autoFocus>
+                        <Button variant="contained" color="inherit" onClick={() => this.assignRider()} sx={{backgroundColor:"#ffc947", color:"black",marginRight:"0px", width:"150px"}} autoFocus>
                             Confirm
                         </Button>
                     </DialogActions>
@@ -229,6 +262,48 @@ export default class PlacedOrders extends React.Component {
                         </Button>
                     </DialogActions>
 
+                </Dialog>
+
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"Assign a Rider to deliver Order"}
+                    </DialogTitle>
+                    <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Select a rider from this table
+                    </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Address</TableCell>
+                                    <TableCell>Contact No</TableCell>
+                                </TableRow>
+                            </TableHead>
+
+                            <TableBody>
+                                {
+                                    this.state.RidersDet.map((rider) => (
+                                        <TableRow>
+                                            <TableCell> {rider.name} </TableCell>
+                                            <TableCell> {rider.Address}</TableCell>
+                                            <TableCell> {rider.PhoneNumber}</TableCell>
+                                            <TableCell> <Button onClick={() => this.RiderAssignModal(rider._id, rider.name)}>Select</Button> </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                        
+                    
+                    </DialogActions>
                 </Dialog>
             </div>
         )

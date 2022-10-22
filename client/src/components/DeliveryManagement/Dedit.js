@@ -1,85 +1,99 @@
 import axios from "axios";
-import React, { useState } from "react";
-import Header from "../HeaderFooter/Header";
-import Footer from "../HeaderFooter/Footer";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const DpersonEdit = (_props) => {
-  const id = _props.match.params.id;
+  const params = useParams();
+  const id = params.id;
   //console.log(id);
   const [Dperson, setDperson] = useState([]);
-
-  axios
-    .get(`http://localhost:8087/get/${id}`)
-    .then((response) => setDperson(response.data))
-    .catch((err) => console.log(err));
-
-  // console.log(app);
-
   const [name, setname] = useState("");
   const [IdNumber, setIdNumber] = useState("");
-  const [PNumber, setPNumber] = useState("");
+  const [PhoneNumber, setPNumber] = useState("");
   const [Address, setAddress] = useState("");
 
-  function sendData(e) {
+  useEffect(() => {
+    const fetchUser = async () => {
+      axios
+    .get(`http://localhost:8070/Dperson/get/${id}`)
+    .then((response) => {
+      setDperson(response.data)
+      setname(response.data.name)
+      setAddress(response.data.Address)
+      setIdNumber(response.data.IdNumber)
+      setPNumber(response.data.PhoneNumber)
+      //console.log(response.data)
+    })
+    .catch((err) => console.log(err));
+    };
+    fetchUser(); // this function will called only once
+  }, []);
+
+   //console.log(Dperson);
+
+  const sendData = (e) => {
     e.preventDefault();
 
     const Dperson = {
       name,
       IdNumber,
-      PNumber,
+      PhoneNumber,
       Address,
     };
+    console.log(Dperson);
+
     axios
-      .put(`http://localhost:8087/Dperson/update/${id}`, Dperson)
-      .then(() => alert("appointment updated.."), (window.location = `/`))
+      .put(`http://localhost:8070/Dperson/update/${id}`, Dperson)
+      .then(() => alert("appointment updated.."))
       .catch((err) => console.log(err));
 
-    console.log(Dperson);
+   // console.log(Dperson);
   }
 
   return (
     <div>
-      <Header />
+      {/* <Header /> */}
       <h1 className="patedith1"> Edit Delivery person </h1>
 
-      <form onSubmit={sendData}>
+      <form>
         <div className="mb-3">
           <label for="name" className="form-label">
-            enter student name
+            Enter Rider Name
           </label>
           <input
             type="text"
             className="form-control"
             id="name"
             aria-describedby="emailHelp"
-            onChange={(e) => {
-              setname(e.target.value);
-            }}
+            value={name}
+            onChange={(e) => setname(e.target.value)}            
           />
         </div>
         <div className="mb-3">
           <label for="IdNumber" className="form-label">
-            enter student IdNumber
+          Enter Rider NIC
           </label>
           <input
             type="text"
             className="form-control"
             id="IdNumber"
             aria-describedby="emailHelp"
-            onChange={(e) => {
-              setIdNumber(e.target.value);
-            }}
+            value={IdNumber}
+            onChange={(e) => 
+              setIdNumber(e.target.value)
+            }
           />
         </div>
         <div className="mb-3">
           <label for="PhoneNumber" className="form-label">
-            enter student PhoneNumber
+            Enter Rider PhoneNumber
           </label>
           <input
             type="text"
             className="form-control"
             id="PhoneNumber"
             aria-describedby="emailHelp"
+            value={PhoneNumber}
             onChange={(e) => {
               setPNumber(e.target.value);
             }}
@@ -87,24 +101,25 @@ const DpersonEdit = (_props) => {
         </div>
         <div className="mb-3">
           <label for="Address" className="form-label">
-            enter student PhoneNumber
+            Enter Rider Address
           </label>
           <input
             type="text"
             className="form-control"
             id="Address"
             aria-describedby="emailHelp"
+            value={Address}
             onChange={(e) => {
               setAddress(e.target.value);
             }}
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="button" onClick={sendData} className="btn btn-primary">
           Submit
         </button>
       </form>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };
