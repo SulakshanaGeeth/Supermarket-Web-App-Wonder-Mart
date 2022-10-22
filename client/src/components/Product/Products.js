@@ -108,6 +108,8 @@ const Products = () => {
 
   return (
     <div>
+        <Button variant="contained" href="/admin/addProduct/" style={{marginLeft:"400px"}}>Add Products</Button>
+        <Button variant="contained" href="/admin/reprtProduct/" style={{marginLeft:"25px"}}>Generate Report</Button>
       <Search
           style={{
             textAlign: "center",
@@ -127,6 +129,7 @@ const Products = () => {
             onChange={Searchfunc}
         />
       </Search>
+
       <ul>
         {products &&
           products.map((product, i) => (
